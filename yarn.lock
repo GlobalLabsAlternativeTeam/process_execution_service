@@ -1124,6 +1124,11 @@
   dependencies:
     "@types/superagent" "*"
 
+"@types/validator@^13.7.10":
+  version "13.11.7"
+  resolved "https://registry.yarnpkg.com/@types/validator/-/validator-13.11.7.tgz#99e19760297667ae46b7069ec8b96cbfe0a08b98"
+  integrity sha512-q0JomTsJ2I5Mv7dhHhQLGjMvX0JJm5dyZ1DXQySIUzU1UlwzB8bt+R6+LODUbz0UDIOvEzGc28tk27gBJw2N8Q==
+
 "@types/yargs-parser@*":
   version "21.0.3"
   resolved "https://registry.yarnpkg.com/@types/yargs-parser/-/yargs-parser-21.0.3.tgz#815e30b786d2e8f0dcd85fd5bcf5e1a04d008f15"
@@ -1813,6 +1818,20 @@ cjs-module-lexer@^1.0.0:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-1.2.3.tgz#6c370ab19f8a3394e318fe682686ec0ac684d107"
   integrity sha512-0TNiGstbQmCFwt4akjjBg5pLRTSyj/PkWQ1ZoO2zntmg9yLqSRxwEa4iCfQLGjqhiqBfOJa7W/E8wfGrTDmlZQ==
+
+class-transformer@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/class-transformer/-/class-transformer-0.5.1.tgz#24147d5dffd2a6cea930a3250a677addf96ab336"
+  integrity sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw==
+
+class-validator@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/class-validator/-/class-validator-0.14.0.tgz#40ed0ecf3c83b2a8a6a320f4edb607be0f0df159"
+  integrity sha512-ct3ltplN8I9fOwUd8GrP8UQixwff129BkEtuWDKL5W45cQuLd19xqmTLu5ge78YDm/fdje6FMt0hGOhl0lii3A==
+  dependencies:
+    "@types/validator" "^13.7.10"
+    libphonenumber-js "^1.10.14"
+    validator "^13.7.0"
 
 cli-cursor@^3.1.0:
   version "3.1.0"
@@ -3607,6 +3626,11 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
+libphonenumber-js@^1.10.14:
+  version "1.10.50"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.10.50.tgz#d7ea406dd86f9b1056f261bdfe66c3016ed0bd2e"
+  integrity sha512-AOYOJslxKQ49mpwvpkSFcagoMtxeH1UpUHm+05pmPkenPpFbt6ofdeEvQ+ZylmQiJS99ocRWeEeEp7quVlFyVA==
+
 lines-and-columns@^1.1.6:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.2.4.tgz#eca284f75d2965079309dc0ad9255abb2ebc1632"
@@ -4623,7 +4647,6 @@ string-length@^4.0.1:
     strip-ansi "^6.0.0"
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
-  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -4656,7 +4679,6 @@ string_decoder@~1.1.1:
     safe-buffer "~5.1.0"
 
 "strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
-  name strip-ansi-cjs
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
@@ -5030,6 +5052,11 @@ v8-to-istanbul@^9.0.1:
     "@types/istanbul-lib-coverage" "^2.0.1"
     convert-source-map "^2.0.0"
 
+validator@^13.7.0:
+  version "13.11.0"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-13.11.0.tgz#23ab3fd59290c61248364eabf4067f04955fbb1b"
+  integrity sha512-Ii+sehpSfZy+At5nPdnyMhx78fEoPDkR2XW/zimHEL3MyGJQOCQ7WeP20jPYRz7ZCpcKLB21NxuXHF3bxjStBQ==
+
 vary@^1, vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
@@ -5125,7 +5152,6 @@ windows-release@^4.0.0:
     execa "^4.0.2"
 
 "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
-  name wrap-ansi-cjs
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
