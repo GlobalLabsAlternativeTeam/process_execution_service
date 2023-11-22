@@ -5,11 +5,9 @@ import { Instance, InstanceStatus } from '@prisma/client';
 import { CreateInstanceReq } from '~/interfaces';
 import { PrismaService } from '~/prisma/prisma.service';
 
-@Controller('treatment')
-export class TreatmentController {
+@Controller()
+export class AppController {
   constructor(private prisma: PrismaService) {}
-
-  // TreatmentService ==========================================================
 
   @GrpcMethod('TreatmentService')
   async createInstance(req: CreateInstanceReq): Promise<Instance> {
