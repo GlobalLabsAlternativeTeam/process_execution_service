@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+package treatment;
+
+service ProcessExecutionService {
+  rpc CreateInstance (CreateInstanceReq) returns (Instance);
+  rpc GetInstancesByPatient (GetInstancesByPatientReq) returns (stream Instance);
+  rpc GetInstanceById (GetInstanceByIdReq) returns (Instance);
+
+  rpc CompleteTask (CompleteTaskReq) returns (stream TaskStatusGroup);
+  rpc GetTask (GetTaskReq) returns (stream Task);
+  
+  rpc GetSchemaInstance (GetSchemaInstanceReq) returns (SchemaInstance);
+}
+
+message CreateInstanceReq {
+  Schema schema = 1;
+  uint64 patient_id = 2;
+  uint64 doctor_id = 3;
+}
+
+message GetInstancesByPatientReq {
+  uint64 patient_id = 1;
+}
+
+message GetInstanceByIdReq {
+  uint64 instance_id = 1;
+}
+
+message CompleteTaskReq {
+  string instance_id = 1;
+  repeated int64 task_id = 2;
+}
+
+message GetTaskReq {
+  uint64 instance_id = 1;
+  uint64 task_id = 2;
+}
+
+message GetSchemaInstanceReq {
+  string schema_instance_id = 1;
+}
+
+
+// should be in schema-registry ===============================================
+
+message TaskStatusGroup {
+  uint64 task_id = 1;
+  TaskStatus task_status = 2;
+}
+
+// schema-registry ============================================================
+
+message Instance {
+    uint64 instance_id = 1;
+    uint64 doctor_id = 2;
+    uint64 patient_id = 3;
+    InstanceStatus status = 4;
+    string schema_instance_id = 5;
+    google.protobuf.Timestamp started_at = 6;
+    google.protobuf.Timestamp finished_at = 7;
+    google.protobuf.Timestamp deleted_at = 8;
+}
+
+enum InstanceStatus {
+    INSTANCE_STATUS_UNSPECIFIED = 0;
+    INSTANCE_STATUS_RUNNING = 1;
+    INSTANCE_STATUS_BLOCKED = 2;
+    INSTANCE_STATUS_COMPLETED = 3;
+    INSTANCE_STATUS_CANCELLED = 4;
+}
+
+message SchemaInstance {
+  string schema_instance_id = 1;
+  Schema schema_reference = 5;
+}
+
+message Schema {
+  uint64 schema_id = 1;
+  uint64 author_id = 2;
+  string schema_name = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+  google.protobuf.Timestamp deleted_at = 6;
+  repeated Task tasks = 7;// tasks
+}
+
+message Task {
+  uint64 id = 1; // id of the task (unique for this schema)
+  int32 level = 2; // level of the task
+  string name = 3; //name aof the task
+  TaskStatus status = 4; //status of the task
+  repeated uint64 blocked_by = 5; // id of the task that block it
+  optional uint64 responsible = 6; // person responsible for this task
+  optional uint64 time_limit = 7; // time limit for task in minutes
+  repeated Task children = 8; // subtasks of this task 
+  google.protobuf.StringValue comment = 9; // comment
+}
+
+enum TaskStatus {
+  TASK_STATUS_UNSPECIFIED = 0;
+  TASK_STATUS_NOT_STARTED = 1;
+  TASK_STATUS_IN_PROGRESS = 2;
+  TASK_STATUS_BLOCKED = 3;
+  TASK_STATUS_DONE = 4;
+}
