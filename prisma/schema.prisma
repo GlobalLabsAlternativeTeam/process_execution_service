@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Instance {
+  id               Int    @id @default(autoincrement())
+  doctorId         Int
+  patientId        Int
+  // status           InstanceStatus
+  schemaInstanceId String
+  startedAt        String
+  finishedAt       String
+  deletedAt        String
+}
+
+// Define your Prisma enum for InstanceStatus
+enum InstanceStatus {
+  INSTANCE_STATUS_UNSPECIFIED
+  INSTANCE_STATUS_RUNNING
+  INSTANCE_STATUS_BLOCKED
+  INSTANCE_STATUS_COMPLETED
+  INSTANCE_STATUS_CANCELLED
+}
+
+// uint32 id = 1;
+// uint32 doctor_id = 2;
+// uint32 patient_id = 3;
+// InstanceStatus status = 4;
+// string schema_instance_id = 5;
+// string started_at = 6;
+// string finished_at = 7;
+// string deleted_at = 8;

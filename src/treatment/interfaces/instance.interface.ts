@@ -4,7 +4,7 @@ export interface Instance {
   id: number;
   doctorId: number;
   patientId: number;
-  status: InstanceStatus;
+  // status: InstanceStatus;
   schemaInstanceId: string;
   startedAt: string;
   finishedAt: string;
