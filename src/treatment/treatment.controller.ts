@@ -1,12 +1,8 @@
 import { Controller } from '@nestjs/common';
-import { GrpcMethod, GrpcStreamMethod } from '@nestjs/microservices';
-import { Observable, Subject } from 'rxjs';
-
-// Interfaces
-// import { InstanceById } from './interfaces/instance-by-id.interface';
-import { Instance } from './interfaces/instance.interface';
-import { InstanceStatus } from './interfaces/instance-status.interface';
-import { CreateInstanceReq } from './interfaces/create-instance-req.interface';
+import { GrpcMethod } from '@nestjs/microservices';
+// import { Observable, Subject } from 'rxjs';
+import { Instance, InstanceStatus } from '@prisma/client';
+import { CreateInstanceReq } from '~/interfaces';
 import { PrismaService } from '~/prisma/prisma.service';
 
 @Controller('treatment')
@@ -16,17 +12,17 @@ export class TreatmentController {
   // TreatmentService ==========================================================
 
   @GrpcMethod('TreatmentService')
-  async createInstance(data: CreateInstanceReq): Promise<Instance> {
+  async createInstance(req: CreateInstanceReq): Promise<Instance> {
     const now = new Date().toISOString();
 
     const createdInstance = await this.prisma.instance.create({
       data: {
-        // status: InstanceStatus.INSTANCE_STATUS_RUNNING,
+        status: InstanceStatus.INSTANCE_STATUS_RUNNING,
         schemaInstanceId: 'dummySchemaInstanceId',
         startedAt: now,
         finishedAt: now,
         deletedAt: now,
-        ...data,
+        ...req,
       },
     });
 
