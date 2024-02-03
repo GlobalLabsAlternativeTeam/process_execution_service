@@ -11,22 +11,34 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
+type TreatmentAPI interface {
+	GetTreatemtsByPatientID(req *process_execution_service.GetTreatemtsByPatientIDRequest) (*process_execution_service.GetTreatemtsByPatientIDResponse, error)
+	GetTreatmentByID(req *process_execution_service.GetTreatmentByIDRequest) (*process_execution_service.GetTreatmentByIDResponse, error)
+}
+
 type server struct {
 	process_execution_service.UnimplementedProcessExecutionServiceServer
+	treatmentAPI TreatmentAPI
 }
 
 func (s *server) GetTreatemtsByPatientID(
 	ctx context.Context, req *process_execution_service.GetTreatemtsByPatientIDRequest,
 ) (*process_execution_service.GetTreatemtsByPatientIDResponse, error) {
-	fmt.Println("dd")
-	return nil, nil
+	response, err := s.treatmentAPI.GetTreatemtsByPatientID(req)
+	if err != nil {
+		fmt.Println("Error calling treatment API, GetTreatemtsByPatientID ", err)
+	}
+	return response, nil
 }
 
 func (s *server) GetTreatmentByID(
 	ctx context.Context, req *process_execution_service.GetTreatmentByIDRequest,
 ) (*process_execution_service.GetTreatmentByIDResponse, error) {
-	fmt.Println("dd")
-	return nil, nil
+	response, err := s.treatmentAPI.GetTreatmentByID(req)
+	if err != nil {
+		fmt.Println("Error calling treatment API, GetTreatmentByID ", err)
+	}
+	return response, nil
 }
 
 func main() {
