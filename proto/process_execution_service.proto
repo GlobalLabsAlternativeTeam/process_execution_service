@@ -1,0 +1,112 @@
+syntax = "proto3";
+
+package alt_team.process_execution_service;
+
+import "google/protobuf/timestamp.proto";
+// import "validate/validate.proto";
+import "google/protobuf/wrappers.proto";
+// import "treatment.proto";
+
+option go_package = "./process_execution_service";
+
+
+service ProcessExecutionService{
+    rpc GetTreatemtsByPatientID(GetTreatemtsByPatientIDRequest) returns (GetTreatemtsByPatientIDResponse);
+    rpc GetTreatmentByID(GetTreatmentByIDRequest) returns (GetTreatmentByIDResponse);
+}
+
+
+message GetTreatemtsByPatientIDRequest{
+    string patient_id = 1;
+
+}
+
+message GetTreatemtsByPatientIDResponse{
+    string patient_id = 1;
+    repeated TreatmentLight treatment_light = 2;
+
+
+}
+
+message TreatmentLight{
+    string treatment_id = 1;
+    string treatment_name = 2;
+    string treatment_status = 3;
+    float treatment_progress = 4;
+}
+
+message GetTreatmentByIDRequest{
+    string treatment_id = 1;
+
+}
+
+
+message GetTreatmentByIDResponse{
+    Treatment treatment = 1;
+
+}
+
+message Treatment{
+    string treatment_id = 1;
+    string doctor_id = 2;
+    string patient_id = 3;
+    TreatmentStatus status = 4;
+    string schema_instace_id = 5;
+    google.protobuf.Timestamp started_at = 6;
+    google.protobuf.Timestamp finished_at = 7;
+    google.protobuf.Timestamp deleted_at = 8;
+}
+
+
+enum TreatmentStatus {
+    TREATMENT_STATUS_UNSPECIFIED = 0;
+    TREATMENT_STATUS_RUNNING = 1;
+    TREATMENT_STATUS_BLOCKED = 2;
+    TREATMENT_STATUS_COMPLETED = 3;
+    TREATMENT_STATUS_CANCELLED = 4;
+  }
+
+
+  message Task{
+    int64 id = 1; // id of the task (unique for this schema)
+    int32 level = 2; // level of the task
+    string name = 3; //name aof the task
+    TaskStatus status = 4; //status of the task
+    repeated int64 blocked_by = 5; // id of the task that block it
+    optional uint64 resposinble = 6; // person responsible for this task
+    optional int64 time_limit = 7; // time limit for task in minutes
+    repeated Task children = 8; // subtasks of this task 
+    google.protobuf.StringValue comment = 9; // comment
+}
+
+
+enum TaskStatus {
+    TASK_STATUS_UNSPECIFIED = 0;
+    TASK_STATUS_NOT_STARTED = 1;
+    TASK_STATUS_IN_PROGRESS = 2;
+    TASK_STATUS_BLOCKED = 3;
+    TASK_STATUS_DONE = 4;
+}
+
+
+message PatternInstance{
+    string instance_id = 1;
+    PatternInstanceStatus status = 2;
+    string pattern_id = 3;
+    string author_id = 4;
+    string pattern_name = 5;
+    google.protobuf.Timestamp created_at = 6;
+    google.protobuf.Timestamp updated_at = 7;
+    google.protobuf.Timestamp deleted_at = 8;
+    repeated Task tasks = 9;// tasks
+}
+
+
+enum PatternInstanceStatus {
+    PATTERN_INSTANCE_STATUS_STATUS_UNSPECIFIED = 0;
+    PATTERN_INSTANCE_STATUS_NOT_STARTED = 1;
+    PATTERN_INSTANCE_STATUS_STATUS_RUNNING = 2;
+    PATTERN_INSTANCE_STATUS_STATUS_BLOCKED = 3;
+    PATTERN_INSTANCE_STATUS_STATUS_COMPLETED = 4;
+    PATTERN_INSTANCE_STATUS_STATUS_CANCELLED = 5;
+  }
