@@ -83,8 +83,8 @@ enum TreatmentStatus {
     string name = 3; //name aof the task
     TaskStatus status = 4; //status of the task
     repeated int64 blocked_by = 5; // id of the task that block it
-    optional uint64 resposinble = 6; // person responsible for this task
-    optional int64 time_limit = 7; // time limit for task in minutes
+    uint64 responsible = 6; // person responsible for this task
+    int64 time_limit = 7; // time limit for task in minutes
     repeated Task children = 8; // subtasks of this task 
     google.protobuf.StringValue comment = 9; // comment
 }

@@ -8,7 +8,7 @@ import (
 )
 
 type StorageInterface interface {
-	GetTreatments(patientID string) ([]domain.TreatmentLight, error)
+	GetTreatments(patientID string) ([]domain.LightTreatment, error)
 	TreatmentByID(treatmentID string) (domain.Treatment, error)
 }
 
@@ -16,7 +16,7 @@ type Treatment struct {
 	StorageProvider StorageInterface
 }
 
-func (t *Treatment) PatientTreatments(patientID string) ([]domain.TreatmentLight, error) {
+func (t *Treatment) PatientTreatments(patientID string) ([]domain.LightTreatment, error) {
 	fmt.Println("START PatientTreatments handler")
 	treatments, err := t.StorageProvider.GetTreatments(patientID)
 	if err != nil {

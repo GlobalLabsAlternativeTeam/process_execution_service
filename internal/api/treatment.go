@@ -10,7 +10,7 @@ import (
 )
 
 type TreatmentHandler interface {
-	PatientTreatments(patientID string) ([]domain.TreatmentLight, error)
+	PatientTreatments(patientID string) ([]domain.LightTreatment, error)
 	GetTreatment(treatmentID string) (domain.Treatment, error)
 }
 
@@ -23,7 +23,7 @@ func (s *TreatmentServer) GetTreatmentsByPatientID(
 	ctx context.Context, req *process_execution_service.GetTreatmentsByPatientIDRequest,
 ) (*process_execution_service.GetTreatmentsByPatientIDResponse, error) {
 	fmt.Println("START GetTreatmentsByPatientID API")
-	patientID := "aa"
+	patientID := req.PatientId
 	treatments, err := s.TreatmentHandler.PatientTreatments(patientID)
 
 	if err != nil {
@@ -52,11 +52,15 @@ func (s *TreatmentServer) GetTreatmentsByPatientID(
 func (s *TreatmentServer) GetTreatmentByID(
 	ctx context.Context, req *process_execution_service.GetTreatmentByIDRequest,
 ) (*process_execution_service.GetTreatmentByIDResponse, error) {
-	treatmentID := "aa"
-	_, err := s.TreatmentHandler.GetTreatment(treatmentID)
+	treatmentID := req.TreatmentId
+	treatment, err := s.TreatmentHandler.GetTreatment(treatmentID)
 	if err != nil {
 		fmt.Println("Error calling treatment API, GetTreatmentByID ", err)
 		return nil, err
 	}
-	return nil, nil
+
+	response := &process_execution_service.GetTreatmentByIDResponse{
+		Treatment: domain.TreatmentToGRPC(&treatment),
+	}
+	return response, nil
 }

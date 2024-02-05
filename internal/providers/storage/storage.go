@@ -13,11 +13,11 @@ type Storage struct {
 	// Add necessary dependencies
 }
 
-func (s *Storage) GetTreatments(patientID string) ([]domain.TreatmentLight, error) {
+func (s *Storage) GetTreatments(patientID string) ([]domain.LightTreatment, error) {
 	fmt.Println(" START GetTreatments, provider/storage")
-	var treatments []domain.TreatmentLight
+	var treatments []domain.LightTreatment
 	for i := 0; i < rand.Intn(10); i++ {
-		var lightTreatment domain.TreatmentLight
+		var lightTreatment domain.LightTreatment
 		curLightTreatment := LightTreatmentMock()
 		err := json.Unmarshal(curLightTreatment, &lightTreatment)
 
