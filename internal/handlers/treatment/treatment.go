@@ -1,3 +1,5 @@
+// internal/handlers/treatment/treatment.go
+
 package treatment
 
 import (
@@ -5,33 +7,30 @@ import (
 	"server/internal/domain"
 )
 
-// import {
-
-// }
-
 type StorageInterface interface {
-	GetTreatemtsByPatientID(patient_id string) (domain.TreatmentLight, error)
-	GetTreatment(treatment_id string) (domain.Treatment, error)
+	GetTreatments(patientID string) ([]domain.TreatmentLight, error)
+	TreatmentByID(treatmentID string) (domain.Treatment, error)
 }
 
-type TreatmentHandler struct {
-	storageProvider StorageInterface
+type Treatment struct {
+	StorageProvider StorageInterface
 }
 
-func (t *TreatmentHandler) GetTreatemtsByPatientID(patient_id string) (domain.TreatmentLight, error) {
-	treatmnents, err := t.storageProvider.GetTreatemtsByPatientID(patient_id)
+func (t *Treatment) PatientTreatments(patientID string) ([]domain.TreatmentLight, error) {
+	fmt.Println("START PatientTreatments handler")
+	treatments, err := t.StorageProvider.GetTreatments(patientID)
 	if err != nil {
 		fmt.Println("Error getting treatment entities: ", err)
 	}
-	fmt.Printf("GetTreatemtsByPatientID, provider/handler")
-	return treatmnents, nil
+	fmt.Println("END PatientTreatments handler")
+	return treatments, nil
 }
 
-func (t *TreatmentHandler) GetTreatments(treatment_id string) (domain.Treatment, error) {
-	treatmemt, err := t.storageProvider.GetTreatment(treatment_id)
+func (t *Treatment) GetTreatment(treatmentID string) (domain.Treatment, error) {
+	treatment, err := t.StorageProvider.TreatmentByID(treatmentID)
 	if err != nil {
 		fmt.Println("Error getting treatment entities: ", err)
 	}
 	fmt.Printf("GetTreatemts, provider/handler")
-	return treatmemt, nil
+	return treatment, nil
 }

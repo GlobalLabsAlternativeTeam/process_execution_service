@@ -1,79 +1,42 @@
+// cmd/main.go
+
 package main
 
 import (
-	"context"
-	"fmt"
 	"log"
 	"net"
+	"server/internal/api"
+	"server/internal/handlers/treatment"
+	"server/internal/providers/storage"
 	process_execution_service "server/proto"
 
+	// "github.com/GlobalLabsAlternativeTeam/process_execution_service/internal/api"
+	// "github.com/GlobalLabsAlternativeTeam/process_execution_service/internal/handlers/treatment"
+	// "github.com/GlobalLabsAlternativeTeam/process_execution_service/internal/providers/storage"
+
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
 )
 
-type TreatmentAPI interface {
-	GetTreatemtsByPatientID(req *process_execution_service.GetTreatemtsByPatientIDRequest) (*process_execution_service.GetTreatemtsByPatientIDResponse, error)
-	GetTreatmentByID(req *process_execution_service.GetTreatmentByIDRequest) (*process_execution_service.GetTreatmentByIDResponse, error)
-}
-
-type server struct {
-	process_execution_service.UnimplementedProcessExecutionServiceServer
-	treatmentAPI TreatmentAPI
-}
-
-func (s *server) GetTreatemtsByPatientID(
-	ctx context.Context, req *process_execution_service.GetTreatemtsByPatientIDRequest,
-) (*process_execution_service.GetTreatemtsByPatientIDResponse, error) {
-	response, err := s.treatmentAPI.GetTreatemtsByPatientID(req)
-	if err != nil {
-		fmt.Println("Error calling treatment API, GetTreatemtsByPatientID ", err)
-	}
-	return response, nil
-}
-
-func (s *server) GetTreatmentByID(
-	ctx context.Context, req *process_execution_service.GetTreatmentByIDRequest,
-) (*process_execution_service.GetTreatmentByIDResponse, error) {
-	response, err := s.treatmentAPI.GetTreatmentByID(req)
-	if err != nil {
-		fmt.Println("Error calling treatment API, GetTreatmentByID ", err)
-	}
-	return response, nil
-}
-
 func main() {
-	listener, err := net.Listen("tcp", ":8080")
+	// Create a listener on TCP port 50051
+	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
-		panic(err)
+		log.Fatalf("Failed to listen: %v", err)
 	}
 
-	s := grpc.NewServer()
-	process_execution_service.RegisterProcessExecutionServiceServer(s, &server{})
-	reflection.Register(s)
+	// Create instances of your dependencies (handlers, storage, etc.)
+	storageService := &storage.Storage{}
+	treatmentHandler := &treatment.Treatment{StorageProvider: storageService}
+	apiService := &api.TreatmentServer{TreatmentHandler: treatmentHandler}
 
-	if err := s.Serve(listener); err != nil {
-		log.Fatalf("failed to serve: %v", err)
+	// Create a new gRPC server
+	server := grpc.NewServer()
+
+	// Register the ProcessExecutionService server
+	process_execution_service.RegisterProcessExecutionServiceServer(server, apiService)
+
+	// Serve and listen for incoming requests
+	if err := server.Serve(lis); err != nil {
+		log.Fatalf("Failed to serve: %v", err)
 	}
 }
-
-// func (s *server) GetBookList(ctx context.Context, in *process_execution_service.GetBookListRequest) (*process_execution_service.GetBookListResponse, error) {
-// 	return &process_execution_service.GetBookListResponse{
-// 		Books: getSampleBooks(),
-// 	}, nil
-// }
-
-//	func getSampleBooks() []*process_execution_service.Book {
-//		sampleBooks := []*process_execution_service.Book{
-//			{
-//				Title:     "The Hitchhiker's Guide to the Galaxy",
-//				Author:    "Douglas Adams",
-//				PageCount: 42,
-//			},
-//			{
-//				Title:     "The Lord of the Rings",
-//				Author:    "J.R.R. Tolkien",
-//				PageCount: 1234,
-//			},
-//		}
-//		return sampleBooks
-//	}

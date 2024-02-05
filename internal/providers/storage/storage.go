@@ -1,20 +1,45 @@
+// internal/providers/storage/storage.go
+
 package storage
 
 import (
+	"encoding/json"
 	"fmt"
+	"math/rand"
 	"server/internal/domain"
 )
 
 type Storage struct {
-	StorageServer domain.StorageServer
+	// Add necessary dependencies
 }
 
-func (s *Storage) GetTreatemtsByPatientID(patient_id string) (domain.TreatmentLight, error) {
-	fmt.Printf("GetTreatemtsByPatientID, provider/storage")
-	return domain.TreatmentLight{}, nil
+func (s *Storage) GetTreatments(patientID string) ([]domain.TreatmentLight, error) {
+	fmt.Println(" START GetTreatments, provider/storage")
+	var treatments []domain.TreatmentLight
+	for i := 0; i < rand.Intn(10); i++ {
+		var lightTreatment domain.TreatmentLight
+		curLightTreatment := LightTreatmentMock()
+		err := json.Unmarshal(curLightTreatment, &lightTreatment)
+
+		if err != nil {
+			fmt.Println("GetTreatments, provider/storage Error marshaling")
+			fmt.Println(err)
+		}
+		treatments = append(treatments, lightTreatment)
+	}
+
+	fmt.Println("END GetTreatments, provider/storage ")
+
+	return treatments, nil
 }
 
-func (s *Storage) GetTreatment(treatment_id string) (domain.Treatment, error) {
+func (s *Storage) TreatmentByID(treatmentID string) (domain.Treatment, error) {
 	fmt.Printf("GetTreatment, provider/storage")
 	return domain.Treatment{}, nil
 }
+
+// LightTreatmentMock is a mock function to generate JSON data for TreatmentLight
+// func LightTreatmentMock() []byte {
+// 	// Implement your mock data generation logic
+// 	return []byte(`{"treatment_id": "mock_id", "treatment_name": "mock_name", "treatment_status": "mock_status", "treatment_progress": 0.5}`)
+// }

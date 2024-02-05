@@ -1,40 +1,62 @@
+// internal/api/api.go
+
 package api
 
 import (
+	"context"
 	"fmt"
 	"server/internal/domain"
 	process_execution_service "server/proto"
 )
 
-type TreatmentHandeler interface {
-	GetTreatemtsByPatientID(patient_id string) (domain.TreatmentLight, error)
-	GetTreatmentByID(treatment_id string) (domain.Treatment, error)
+type TreatmentHandler interface {
+	PatientTreatments(patientID string) ([]domain.TreatmentLight, error)
+	GetTreatment(treatmentID string) (domain.Treatment, error)
 }
 
-type TreatmentAPI struct {
-	treatmentHandeler TreatmentHandeler
+type TreatmentServer struct {
+	process_execution_service.UnimplementedProcessExecutionServiceServer
+	TreatmentHandler TreatmentHandler
 }
 
-func (t *TreatmentAPI) GetTreatemtsByPatientID(
-	req *process_execution_service.GetTreatemtsByPatientIDRequest,
-) (*process_execution_service.GetTreatemtsByPatientIDResponse, error) {
-	var patient_id = "aa"
-	_, err := t.treatmentHandeler.GetTreatemtsByPatientID(patient_id)
+func (s *TreatmentServer) GetTreatmentsByPatientID(
+	ctx context.Context, req *process_execution_service.GetTreatmentsByPatientIDRequest,
+) (*process_execution_service.GetTreatmentsByPatientIDResponse, error) {
+	fmt.Println("START GetTreatmentsByPatientID API")
+	patientID := "aa"
+	treatments, err := s.TreatmentHandler.PatientTreatments(patientID)
+
 	if err != nil {
-		fmt.Println("Error getting treatment entities: ", err)
+		fmt.Println("Error calling treatment API, GetTreatmentsByPatientID ", err)
+		return nil, err
+	}
+	var grpcTreatments []*process_execution_service.TreatmentLight
+	for _, lt := range treatments {
+		grpcTreatments = append(grpcTreatments, &process_execution_service.TreatmentLight{
+			TreatmentId:       lt.Treatment_ID,
+			TreatmentName:     lt.Treatment_Name,
+			TreatmentStatus:   lt.Treatment_Status,
+			TreatmentProgress: float32(lt.Treatment_Progress),
+		})
 	}
 
-	return nil, nil
+	response := &process_execution_service.GetTreatmentsByPatientIDResponse{
+		PatientId:      req.PatientId,
+		TreatmentLight: grpcTreatments,
+	}
+	fmt.Println("END GetTreatmentsByPatientID API")
+	return response, nil
+
 }
 
-func (t *TreatmentAPI) GetTreatmentByID(
-	req *process_execution_service.GetTreatmentByIDRequest,
+func (s *TreatmentServer) GetTreatmentByID(
+	ctx context.Context, req *process_execution_service.GetTreatmentByIDRequest,
 ) (*process_execution_service.GetTreatmentByIDResponse, error) {
-	var treatment_id = "aa"
-	_, err := t.treatmentHandeler.GetTreatmentByID(treatment_id)
+	treatmentID := "aa"
+	_, err := s.TreatmentHandler.GetTreatment(treatmentID)
 	if err != nil {
-		fmt.Println("Error getting treatment entity: ", err)
+		fmt.Println("Error calling treatment API, GetTreatmentByID ", err)
+		return nil, err
 	}
-
 	return nil, nil
 }

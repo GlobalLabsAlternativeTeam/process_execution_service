@@ -11,7 +11,7 @@ option go_package = "./process_execution_service";
 
 
 service ProcessExecutionService{
-    rpc GetTreatemtsByPatientID(GetTreatemtsByPatientIDRequest) returns (GetTreatemtsByPatientIDResponse);
+    rpc GetTreatmentsByPatientID(GetTreatmentsByPatientIDRequest) returns (GetTreatmentsByPatientIDResponse);
     rpc GetTreatmentByID(GetTreatmentByIDRequest) returns (GetTreatmentByIDResponse);
     // rpc GetBookList(GetBookListRequest) returns (GetBookListResponse) {}
 }
@@ -26,12 +26,12 @@ service ProcessExecutionService{
 //   message GetBookListRequest {}
 //   message GetBookListResponse { repeated Book books = 1; }
 
-message GetTreatemtsByPatientIDRequest{
+message GetTreatmentsByPatientIDRequest{
     string patient_id = 1;
 
 }
 
-message GetTreatemtsByPatientIDResponse{
+message GetTreatmentsByPatientIDResponse{
     string patient_id = 1;
     repeated TreatmentLight treatment_light = 2;
 

@@ -19,15 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ProcessExecutionService_GetTreatemtsByPatientID_FullMethodName = "/alt_team.process_execution_service.ProcessExecutionService/GetTreatemtsByPatientID"
-	ProcessExecutionService_GetTreatmentByID_FullMethodName        = "/alt_team.process_execution_service.ProcessExecutionService/GetTreatmentByID"
+	ProcessExecutionService_GetTreatmentsByPatientID_FullMethodName = "/alt_team.process_execution_service.ProcessExecutionService/GetTreatmentsByPatientID"
+	ProcessExecutionService_GetTreatmentByID_FullMethodName         = "/alt_team.process_execution_service.ProcessExecutionService/GetTreatmentByID"
 )
 
 // ProcessExecutionServiceClient is the client API for ProcessExecutionService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProcessExecutionServiceClient interface {
-	GetTreatemtsByPatientID(ctx context.Context, in *GetTreatemtsByPatientIDRequest, opts ...grpc.CallOption) (*GetTreatemtsByPatientIDResponse, error)
+	GetTreatmentsByPatientID(ctx context.Context, in *GetTreatmentsByPatientIDRequest, opts ...grpc.CallOption) (*GetTreatmentsByPatientIDResponse, error)
 	GetTreatmentByID(ctx context.Context, in *GetTreatmentByIDRequest, opts ...grpc.CallOption) (*GetTreatmentByIDResponse, error)
 }
 
@@ -39,9 +39,9 @@ func NewProcessExecutionServiceClient(cc grpc.ClientConnInterface) ProcessExecut
 	return &processExecutionServiceClient{cc}
 }
 
-func (c *processExecutionServiceClient) GetTreatemtsByPatientID(ctx context.Context, in *GetTreatemtsByPatientIDRequest, opts ...grpc.CallOption) (*GetTreatemtsByPatientIDResponse, error) {
-	out := new(GetTreatemtsByPatientIDResponse)
-	err := c.cc.Invoke(ctx, ProcessExecutionService_GetTreatemtsByPatientID_FullMethodName, in, out, opts...)
+func (c *processExecutionServiceClient) GetTreatmentsByPatientID(ctx context.Context, in *GetTreatmentsByPatientIDRequest, opts ...grpc.CallOption) (*GetTreatmentsByPatientIDResponse, error) {
+	out := new(GetTreatmentsByPatientIDResponse)
+	err := c.cc.Invoke(ctx, ProcessExecutionService_GetTreatmentsByPatientID_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +61,7 @@ func (c *processExecutionServiceClient) GetTreatmentByID(ctx context.Context, in
 // All implementations must embed UnimplementedProcessExecutionServiceServer
 // for forward compatibility
 type ProcessExecutionServiceServer interface {
-	GetTreatemtsByPatientID(context.Context, *GetTreatemtsByPatientIDRequest) (*GetTreatemtsByPatientIDResponse, error)
+	GetTreatmentsByPatientID(context.Context, *GetTreatmentsByPatientIDRequest) (*GetTreatmentsByPatientIDResponse, error)
 	GetTreatmentByID(context.Context, *GetTreatmentByIDRequest) (*GetTreatmentByIDResponse, error)
 	mustEmbedUnimplementedProcessExecutionServiceServer()
 }
@@ -70,8 +70,8 @@ type ProcessExecutionServiceServer interface {
 type UnimplementedProcessExecutionServiceServer struct {
 }
 
-func (UnimplementedProcessExecutionServiceServer) GetTreatemtsByPatientID(context.Context, *GetTreatemtsByPatientIDRequest) (*GetTreatemtsByPatientIDResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTreatemtsByPatientID not implemented")
+func (UnimplementedProcessExecutionServiceServer) GetTreatmentsByPatientID(context.Context, *GetTreatmentsByPatientIDRequest) (*GetTreatmentsByPatientIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTreatmentsByPatientID not implemented")
 }
 func (UnimplementedProcessExecutionServiceServer) GetTreatmentByID(context.Context, *GetTreatmentByIDRequest) (*GetTreatmentByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTreatmentByID not implemented")
@@ -90,20 +90,20 @@ func RegisterProcessExecutionServiceServer(s grpc.ServiceRegistrar, srv ProcessE
 	s.RegisterService(&ProcessExecutionService_ServiceDesc, srv)
 }
 
-func _ProcessExecutionService_GetTreatemtsByPatientID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetTreatemtsByPatientIDRequest)
+func _ProcessExecutionService_GetTreatmentsByPatientID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTreatmentsByPatientIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProcessExecutionServiceServer).GetTreatemtsByPatientID(ctx, in)
+		return srv.(ProcessExecutionServiceServer).GetTreatmentsByPatientID(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ProcessExecutionService_GetTreatemtsByPatientID_FullMethodName,
+		FullMethod: ProcessExecutionService_GetTreatmentsByPatientID_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProcessExecutionServiceServer).GetTreatemtsByPatientID(ctx, req.(*GetTreatemtsByPatientIDRequest))
+		return srv.(ProcessExecutionServiceServer).GetTreatmentsByPatientID(ctx, req.(*GetTreatmentsByPatientIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -134,8 +134,8 @@ var ProcessExecutionService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ProcessExecutionServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetTreatemtsByPatientID",
-			Handler:    _ProcessExecutionService_GetTreatemtsByPatientID_Handler,
+			MethodName: "GetTreatmentsByPatientID",
+			Handler:    _ProcessExecutionService_GetTreatmentsByPatientID_Handler,
 		},
 		{
 			MethodName: "GetTreatmentByID",
