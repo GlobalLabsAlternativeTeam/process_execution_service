@@ -570,7 +570,7 @@ type Task struct {
 	Name        string                  `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`                                                         //name aof the task
 	Status      TaskStatus              `protobuf:"varint,4,opt,name=status,proto3,enum=alt_team.process_execution_service.TaskStatus" json:"status,omitempty"` //status of the task
 	BlockedBy   []int64                 `protobuf:"varint,5,rep,packed,name=blocked_by,json=blockedBy,proto3" json:"blocked_by,omitempty"`                      // id of the task that block it
-	Responsible uint64                  `protobuf:"varint,6,opt,name=responsible,proto3" json:"responsible,omitempty"`                                          // person responsible for this task
+	Responsible string                  `protobuf:"bytes,6,opt,name=responsible,proto3" json:"responsible,omitempty"`                                           // person responsible for this task
 	TimeLimit   int64                   `protobuf:"varint,7,opt,name=time_limit,json=timeLimit,proto3" json:"time_limit,omitempty"`                             // time limit for task in minutes
 	Children    []*Task                 `protobuf:"bytes,8,rep,name=children,proto3" json:"children,omitempty"`                                                 // subtasks of this task
 	Comment     *wrapperspb.StringValue `protobuf:"bytes,9,opt,name=comment,proto3" json:"comment,omitempty"`                                                   // comment
@@ -643,11 +643,11 @@ func (x *Task) GetBlockedBy() []int64 {
 	return nil
 }
 
-func (x *Task) GetResponsible() uint64 {
+func (x *Task) GetResponsible() string {
 	if x != nil {
 		return x.Responsible
 	}
-	return 0
+	return ""
 }
 
 func (x *Task) GetTimeLimit() int64 {
@@ -870,7 +870,7 @@ var file_proto_process_execution_service_proto_rawDesc = []byte{
 	0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x1d, 0x0a, 0x0a, 0x62, 0x6c, 0x6f, 0x63, 0x6b, 0x65, 0x64,
 	0x5f, 0x62, 0x79, 0x18, 0x05, 0x20, 0x03, 0x28, 0x03, 0x52, 0x09, 0x62, 0x6c, 0x6f, 0x63, 0x6b,
 	0x65, 0x64, 0x42, 0x79, 0x12, 0x20, 0x0a, 0x0b, 0x72, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x69,
-	0x62, 0x6c, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0b, 0x72, 0x65, 0x73, 0x70, 0x6f,
+	0x62, 0x6c, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x72, 0x65, 0x73, 0x70, 0x6f,
 	0x6e, 0x73, 0x69, 0x62, 0x6c, 0x65, 0x12, 0x1d, 0x0a, 0x0a, 0x74, 0x69, 0x6d, 0x65, 0x5f, 0x6c,
 	0x69, 0x6d, 0x69, 0x74, 0x18, 0x07, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09, 0x74, 0x69, 0x6d, 0x65,
 	0x4c, 0x69, 0x6d, 0x69, 0x74, 0x12, 0x44, 0x0a, 0x08, 0x63, 0x68, 0x69, 0x6c, 0x64, 0x72, 0x65,

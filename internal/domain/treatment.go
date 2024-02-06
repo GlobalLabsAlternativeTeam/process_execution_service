@@ -8,7 +8,7 @@ type Task struct {
 	Name        string `json:"name"`
 	Status      string `json:"status"`
 	BlockedBy   []any  `json:"blocked_by"`
-	Responsible uint64 `json:"responsible"` // Update this line
+	Responsible string `json:"responsible"` // Update this line
 	TimeLimit   int64  `json:"time_limit"`
 	Children    []Task `json:"children"`
 	Comment     struct {
