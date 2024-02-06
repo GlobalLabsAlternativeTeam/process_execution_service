@@ -157,7 +157,12 @@ func GenerateRandomTask() domain.Task {
 	timeLimit := rand.Int63n(24*60) + 1 // Random value between 1 and 1440 minutes (1 day)
 
 	// Generate random task responsible
-	responsible := rand.Uint64()
+	responsibleLength := rand.Intn(20) + 5 // Random length between 5 and 25 characters
+	responsibleBytes := make([]byte, responsibleLength)
+	for i := range responsibleBytes {
+		nameBytes[i] = charset[rand.Intn(len(charset))]
+	}
+	responsible := string(nameBytes)
 
 	// Generate random task blocked by
 	blockedBy := make([]interface{}, rand.Intn(5)) // Random number of blocked tasks
