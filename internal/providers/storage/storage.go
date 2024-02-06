@@ -34,12 +34,7 @@ func (s *Storage) GetTreatments(patientID string) ([]domain.LightTreatment, erro
 }
 
 func (s *Storage) TreatmentByID(treatmentID string) (domain.Treatment, error) {
+	treatment := GenerateRandomTreatment()
 	fmt.Printf("GetTreatment, provider/storage")
-	return domain.Treatment{}, nil
+	return treatment, nil
 }
-
-// LightTreatmentMock is a mock function to generate JSON data for TreatmentLight
-// func LightTreatmentMock() []byte {
-// 	// Implement your mock data generation logic
-// 	return []byte(`{"treatment_id": "mock_id", "treatment_name": "mock_name", "treatment_status": "mock_status", "treatment_progress": 0.5}`)
-// }
