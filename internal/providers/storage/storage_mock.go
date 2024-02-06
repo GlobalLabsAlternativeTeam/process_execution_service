@@ -2,6 +2,7 @@ package storage
 
 import (
 	"encoding/json"
+	"fmt"
 	"math/rand"
 	"server/internal/domain"
 	"time"
@@ -23,8 +24,9 @@ func GenerateRandomLightTreatmentJSON() (string, error) {
 		TreatmentID:       randomString(10),
 		TreatmentName:     randomString(10),
 		TreatmentStatus:   status,
-		TreatmentProgress: rand.Intn(100),
+		TreatmentProgress: rand.Intn(100) + 1,
 	}
+	fmt.Print(lightTreatment)
 
 	// Marshal the LightTreatment struct to JSON
 	jsonBytes, err := json.Marshal(lightTreatment)

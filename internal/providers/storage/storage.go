@@ -16,7 +16,7 @@ type Storage struct {
 func (s *Storage) GetTreatments(patientID string) ([]domain.LightTreatment, error) {
 	fmt.Println(" START GetTreatments, provider/storage")
 	var treatments []domain.LightTreatment
-	for i := 0; i < rand.Intn(10); i++ {
+	for i := 0; i < rand.Intn(10)+1; i++ {
 		var lightTreatment domain.LightTreatment
 		curLightTreatment, err := GenerateRandomLightTreatmentJSON()
 		if err != nil {
