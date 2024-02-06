@@ -72,7 +72,7 @@ func GenerateRandomPatternInstance() domain.PatternInstance {
 	deletedAt := randTime()
 
 	// Generate random tasks
-	numTasks := rand.Intn(5) // Random number of tasks (up to 5)
+	numTasks := rand.Intn(5) + 1 // Random number of tasks (up to 5)
 	tasks := make([]domain.Task, numTasks)
 	for i := range tasks {
 		tasks[i] = GenerateRandomTask()
@@ -159,12 +159,13 @@ func GenerateRandomTask() domain.Task {
 	timeLimit := rand.Int63n(24*60) + 1 // Random value between 1 and 1440 minutes (1 day)
 
 	// Generate random task responsible
-	responsibleLength := rand.Intn(20) + 5 // Random length between 5 and 25 characters
-	responsibleBytes := make([]byte, responsibleLength)
-	for i := range responsibleBytes {
-		nameBytes[i] = charset[rand.Intn(len(charset))]
+	rand.Seed(time.Now().UnixNano())
+	length := rand.Intn(15) + 1
+	result := make([]byte, length)
+	for i := range result {
+		result[i] = charset[rand.Intn(len(charset))]
 	}
-	responsible := string(nameBytes)
+	responsible := string(result)
 
 	// Generate random task blocked by
 	blockedBy := make([]interface{}, rand.Intn(5)) // Random number of blocked tasks

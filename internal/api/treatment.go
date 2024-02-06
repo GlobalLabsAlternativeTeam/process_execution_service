@@ -52,6 +52,7 @@ func (s *TreatmentServer) GetTreatmentsByPatientID(
 func (s *TreatmentServer) GetTreatmentByID(
 	ctx context.Context, req *process_execution_service.GetTreatmentByIDRequest,
 ) (*process_execution_service.GetTreatmentByIDResponse, error) {
+	fmt.Println("START GetTreatmentByID API")
 	treatmentID := req.TreatmentId
 	treatment, err := s.TreatmentHandler.GetTreatment(treatmentID)
 	if err != nil {
@@ -62,5 +63,6 @@ func (s *TreatmentServer) GetTreatmentByID(
 	response := &process_execution_service.GetTreatmentByIDResponse{
 		Treatment: domain.TreatmentToGRPC(&treatment),
 	}
+	fmt.Println("END GetTreatmentByID API")
 	return response, nil
 }
