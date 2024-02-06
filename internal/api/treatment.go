@@ -33,10 +33,10 @@ func (s *TreatmentServer) GetTreatmentsByPatientID(
 	var grpcTreatments []*process_execution_service.TreatmentLight
 	for _, lt := range treatments {
 		grpcTreatments = append(grpcTreatments, &process_execution_service.TreatmentLight{
-			TreatmentId:       lt.Treatment_ID,
-			TreatmentName:     lt.Treatment_Name,
-			TreatmentStatus:   lt.Treatment_Status,
-			TreatmentProgress: float32(lt.Treatment_Progress),
+			TreatmentId:       lt.TreatmentID,
+			TreatmentName:     lt.TreatmentName,
+			TreatmentStatus:   lt.TreatmentStatus,
+			TreatmentProgress: float32(lt.TreatmentProgress),
 		})
 	}
 

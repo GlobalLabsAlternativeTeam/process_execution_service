@@ -18,13 +18,20 @@ func (s *Storage) GetTreatments(patientID string) ([]domain.LightTreatment, erro
 	var treatments []domain.LightTreatment
 	for i := 0; i < rand.Intn(10); i++ {
 		var lightTreatment domain.LightTreatment
-		curLightTreatment := LightTreatmentMock()
-		err := json.Unmarshal(curLightTreatment, &lightTreatment)
-
+		curLightTreatment, err := GenerateRandomLightTreatmentJSON()
 		if err != nil {
-			fmt.Println("GetTreatments, provider/storage Error marshaling")
+			fmt.Println("GetTreatments, provider/storage Error generating random LightTreatment JSON")
 			fmt.Println(err)
+			continue
 		}
+
+		err = json.Unmarshal([]byte(curLightTreatment), &lightTreatment)
+		if err != nil {
+			fmt.Println("GetTreatments, provider/storage Error unmarshaling LightTreatment")
+			fmt.Println(err)
+			continue
+		}
+
 		treatments = append(treatments, lightTreatment)
 	}
 
@@ -34,7 +41,7 @@ func (s *Storage) GetTreatments(patientID string) ([]domain.LightTreatment, erro
 }
 
 func (s *Storage) TreatmentByID(treatmentID string) (domain.Treatment, error) {
-	treatment := GenerateRandomTreatment()
+	treatment := GenerateRandomTreatment(treatmentID)
 	fmt.Printf("GetTreatment, provider/storage")
 	return treatment, nil
 }

@@ -13,7 +13,7 @@ import (
 
 func TreatmentToGRPC(t *Treatment) *process_execution_service.Treatment {
 	return &process_execution_service.Treatment{
-		TreatmentId:     t.TreatmentdID,
+		TreatmentId:     t.TreatmentID,
 		DoctorId:        t.DoctorID,
 		PatientId:       t.PatientID,
 		Status:          convertTreatmentStatus(t.Status),

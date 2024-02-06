@@ -28,7 +28,7 @@ type PatternInstance struct {
 	Tasks                 []Task    `json:"tasks"`
 }
 type Treatment struct {
-	TreatmentdID    string          `json:"treatmentd_id"`
+	TreatmentID     string          `json:"treatmentd_id"`
 	DoctorID        string          `json:"doctor_id"`
 	PatientID       string          `json:"patient_id"`
 	Status          string          `json:"status"`
