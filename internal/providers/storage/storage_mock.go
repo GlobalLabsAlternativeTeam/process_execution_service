@@ -92,7 +92,7 @@ func GenerateRandomPatternInstance() domain.PatternInstance {
 	}
 }
 
-func GenerateRandomTreatment(treatmentID string) domain.Treatment {
+func GenerateRandomTreatment(treatmentID string) (string, error) {
 	// Generate random treatment ID
 
 	// Generate random doctor ID
@@ -114,7 +114,7 @@ func GenerateRandomTreatment(treatmentID string) domain.Treatment {
 	patternInstance := GenerateRandomPatternInstance()
 
 	// Construct and return the treatment
-	return domain.Treatment{
+	treatment := domain.Treatment{
 		TreatmentID:     treatmentID,
 		DoctorID:        doctorID,
 		PatientID:       patientID,
@@ -124,6 +124,17 @@ func GenerateRandomTreatment(treatmentID string) domain.Treatment {
 		DeletedAt:       deletedAt.String(),
 		PatternInstance: patternInstance,
 	}
+
+	// Marshal the Treatment struct to JSON
+	jsonBytes, err := json.Marshal(treatment)
+	if err != nil {
+		return "", err
+	}
+
+	// Convert JSON bytes to string
+	jsonString := string(jsonBytes)
+
+	return jsonString, nil
 }
 
 func randTime() time.Time {

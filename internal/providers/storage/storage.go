@@ -41,7 +41,18 @@ func (s *Storage) GetTreatments(patientID string) ([]domain.LightTreatment, erro
 }
 
 func (s *Storage) TreatmentByID(treatmentID string) (domain.Treatment, error) {
-	treatment := GenerateRandomTreatment(treatmentID)
-	fmt.Printf("GetTreatment, provider/storage")
+	fmt.Println(" START TreatmentByID, provider/storage")
+	var treatment domain.Treatment
+	json_treatment, err := GenerateRandomTreatment(treatmentID)
+	if err != nil {
+		fmt.Println("TreatmentByID, provider/storage Error generating random Treatment JSON")
+		fmt.Println(err)
+	}
+	err = json.Unmarshal([]byte(json_treatment), &treatment)
+	if err != nil {
+		fmt.Println("TreatmentByID, provider/storage Error unmarshaling Treatment")
+		fmt.Println(err)
+	}
+	fmt.Println(" END TreatmentByID, provider/storage")
 	return treatment, nil
 }
