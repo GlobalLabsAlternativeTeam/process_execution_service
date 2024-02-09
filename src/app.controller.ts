@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { GrpcMethod } from '@nestjs/microservices';
 // import { Observable, Subject } from 'rxjs';
-import { Instance, InstanceStatus } from '@prisma/client';
+import { Instance } from '@prisma/client';
 import { CreateInstanceReq } from '~/interfaces';
 import { PrismaService } from '~/prisma/prisma.service';
 
@@ -11,15 +11,10 @@ export class AppController {
 
   @GrpcMethod('TreatmentService')
   async createInstance(req: CreateInstanceReq): Promise<Instance> {
-    const now = new Date().toISOString();
-
     const createdInstance = await this.prisma.instance.create({
       data: {
-        status: InstanceStatus.INSTANCE_STATUS_RUNNING,
         schemaInstanceId: 'dummySchemaInstanceId',
-        startedAt: now,
-        finishedAt: now,
-        deletedAt: now,
+        startedAt: new Date().toISOString(),
         ...req,
       },
     });

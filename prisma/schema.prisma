@@ -14,18 +14,62 @@ model Instance {
   id               Int            @id @default(autoincrement())
   doctorId         Int
   patientId        Int
-  status           InstanceStatus
+  status           InstanceStatus @default(INSTANCE_STATUS_RUNNING)
   schemaInstanceId String
   startedAt        String
-  finishedAt       String
-  deletedAt        String
+  finishedAt       String?
+  deletedAt        String?
 }
 
-// Define your Prisma enum for InstanceStatus
 enum InstanceStatus {
   INSTANCE_STATUS_UNSPECIFIED
   INSTANCE_STATUS_RUNNING
   INSTANCE_STATUS_BLOCKED
   INSTANCE_STATUS_COMPLETED
   INSTANCE_STATUS_CANCELLED
+}
+
+// model SchemaInstance {
+//   id       String @id
+//   schema   Schema @relation(fields: [schemaId], references: [id])
+//   schemaId Int
+// }
+
+model Schema {
+  id        Int     @id @default(autoincrement())
+  name      String
+  authorId  Int
+  createdAt String
+  updatedAt String
+  deletedAt String?
+  tasks     Task[]
+  // instances SchemaInstance[]
+}
+
+model Task {
+  id             Int        @id @default(autoincrement())
+  level          Int
+  name           String
+  status         TaskStatus
+  blocked_by     Int[]
+  responsible_id Int?
+  time_limit     Int?
+  comment        String?
+
+  // Schema relation
+  schema   Schema? @relation(fields: [schemaId], references: [id])
+  schemaId Int?
+
+  // Children relation
+  children Task[] @relation("ParentToChildren")
+  parent   Task?  @relation("ParentToChildren", fields: [parentId], references: [id])
+  parentId Int?
+}
+
+enum TaskStatus {
+  TASK_STATUS_UNSPECIFIED
+  TASK_STATUS_NOT_STARTED
+  TASK_STATUS_IN_PROGRESS
+  TASK_STATUS_BLOCKED
+  TASK_STATUS_DONE
 }
