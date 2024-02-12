@@ -76,6 +76,19 @@ func (mth *MockTreatmentHandler) GetTreatment(treatmentID string) (domain.Treatm
 	return domain.Treatment{}, errors.New("Treatment not found")
 }
 
+func (mth *MockTreatmentHandler) DoctorPatients(doctorID string) ([]string, error) {
+	if doctorID != "validDoctorID" {
+		return nil, errors.New("Doctor not found")
+	}
+
+	patients := []string{
+		"asdasd",
+		"xyzxyz",
+		"asd123",
+	}
+	return patients, nil
+}
+
 func TestGetTreatmentsByPatientID(t *testing.T) {
 	mockHandler := &MockTreatmentHandler{}
 	apiHandler := TreatmentServer{TreatmentHandler: mockHandler}
@@ -169,6 +182,54 @@ func TestGetTreatmentByID(t *testing.T) {
 
 			if response.Treatment.TreatmentId != "validTreatmentID" {
 				t.Errorf("Expected treatment ID 'validTreatmentID', got '%s'", response.Treatment.TreatmentId)
+			}
+		})
+	}
+}
+
+func TestGetDoctorPatients(t *testing.T) {
+	mockHandler := &MockTreatmentHandler{}
+	apiHandler := TreatmentServer{TreatmentHandler: mockHandler}
+
+	tests := []struct {
+		name           string
+		request        *process_execution_service.GetPatientsByDoctorIDRequest
+		expectedError  bool
+		expectedLength int
+	}{
+		{
+			name: "ValidDoctorID",
+			request: &process_execution_service.GetPatientsByDoctorIDRequest{
+				DoctorId: "validDoctorID",
+			},
+			expectedError:  false,
+			expectedLength: 3,
+		},
+		{
+			name: "InvalidDoctorID",
+			request: &process_execution_service.GetPatientsByDoctorIDRequest{
+				DoctorId: "invalidDoctorID",
+			},
+			expectedError:  true,
+			expectedLength: 0,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			response, err := apiHandler.GetPatientsByDoctorID(context.Background(), tt.request)
+
+			if (err != nil) != tt.expectedError {
+				t.Errorf("Unexpected error: %v", err)
+				return
+			}
+
+			if tt.expectedError {
+				return
+			}
+
+			if len(response.PatientIds) != tt.expectedLength {
+				t.Errorf("Expected %d patient IDs, got %d", tt.expectedLength, len(response.PatientIds))
 			}
 		})
 	}

@@ -56,3 +56,17 @@ func (s *Storage) TreatmentByID(treatmentID string) (domain.Treatment, error) {
 	fmt.Println(" END TreatmentByID, provider/storage")
 	return treatment, nil
 }
+
+func (s *Storage) GetPatientsByDoctor(doctorID string) ([]string, error) {
+	fmt.Println(" START GetPatientsByDoctor, provider/storage")
+	var patients []string
+
+	for i := 0; i < rand.Intn(10)+1; i++ {
+		var patient = GenerateRandomString(6)
+		patients = append(patients, patient)
+	}
+
+	fmt.Println("END GetPatientsByDoctor, provider/storage ")
+
+	return patients, nil
+}

@@ -8,21 +8,22 @@ import (
 	"time"
 )
 
-func GenerateRandomLightTreatmentJSON() (string, error) {
+func GenerateRandomString(length uint) string {
 	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	randomString := func(length int) string {
-		b := make([]byte, length)
-		for i := range b {
-			b[i] = charset[rand.Intn(len(charset))]
-		}
-		return string(b)
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = charset[rand.Intn(len(charset))]
 	}
+	return string(b)
+}
+
+func GenerateRandomLightTreatmentJSON() (string, error) {
 	statuses := []string{"RUNNING", "BLOCKED", "COMPLETED"}
 	status := statuses[rand.Intn(len(statuses))]
 
 	lightTreatment := domain.LightTreatment{
-		TreatmentID:       randomString(10),
-		TreatmentName:     randomString(10),
+		TreatmentID:       GenerateRandomString(10),
+		TreatmentName:     GenerateRandomString(10),
 		TreatmentStatus:   status,
 		TreatmentProgress: rand.Intn(100) + 1,
 	}

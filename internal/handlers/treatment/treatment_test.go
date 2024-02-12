@@ -175,3 +175,46 @@ func TestGetTreatment(t *testing.T) {
 		}
 	})
 }
+
+func (msp *MockStorageProvider) GetPatientsByDoctor(doctorID string) ([]string, error) {
+	if doctorID != "validDoctorID" {
+		return nil, errors.New("Doctor not found")
+	}
+
+	patients := []string{
+		"asdasd",
+		"xyzxyz",
+		"asd123",
+	}
+	return patients, nil
+}
+
+func TestGetPatientsByDoctor(t *testing.T) {
+	mockStorageProvider := &MockStorageProvider{}
+	treatmentService := &treatment.Treatment{StorageProvider: mockStorageProvider}
+
+	t.Run("validDoctorID", func(t *testing.T) {
+		expectedPatients := []string{
+			"asdasd",
+			"xyzxyz",
+			"asd123",
+		}
+		resultPatients, err := treatmentService.DoctorPatients("validDoctorID")
+
+		if err != nil {
+			t.Errorf("Expected no error, got %v", err)
+		}
+
+		if !reflect.DeepEqual(resultPatients, expectedPatients) {
+			t.Errorf("Expected patients %+v, got %+v", expectedPatients, resultPatients)
+		}
+	})
+
+	t.Run("InvalidDoctorID", func(t *testing.T) {
+		_, err := treatmentService.DoctorPatients("invalidDoctorID")
+
+		if err == nil {
+			t.Error("Expected an error, but got nil")
+		}
+	})
+}

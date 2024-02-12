@@ -10,6 +10,7 @@ import (
 type TreatmentHandler interface {
 	PatientTreatments(patientID string) ([]domain.LightTreatment, error)
 	GetTreatment(treatmentID string) (domain.Treatment, error)
+	DoctorPatients(doctorID string) ([]string, error)
 }
 
 type TreatmentServer struct {
@@ -62,5 +63,26 @@ func (s *TreatmentServer) GetTreatmentByID(
 		Treatment: domain.TreatmentToGRPC(&treatment),
 	}
 	fmt.Println("END GetTreatmentByID API")
+	return response, nil
+}
+
+func (s *TreatmentServer) GetPatientsByDoctorID(
+	ctx context.Context, req *process_execution_service.GetPatientsByDoctorIDRequest,
+) (*process_execution_service.GetPatientsByDoctorIDResponse, error) {
+	fmt.Println("START GetPatientsByDoctorID API")
+	doctorID := req.DoctorId
+	patients, err := s.TreatmentHandler.DoctorPatients(doctorID)
+
+	if err != nil {
+		fmt.Println("Error calling treatment API, GetPatientsByDoctorID ", err)
+		return nil, err
+	}
+
+	response := &process_execution_service.GetPatientsByDoctorIDResponse{
+		DoctorId:   req.DoctorId,
+		PatientIds: patients,
+	}
+	fmt.Println("END GetPatientsByDoctorID API")
+
 	return response, nil
 }

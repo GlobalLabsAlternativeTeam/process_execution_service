@@ -10,6 +10,7 @@ import (
 type StorageInterface interface {
 	GetTreatments(patientID string) ([]domain.LightTreatment, error)
 	TreatmentByID(treatmentID string) (domain.Treatment, error)
+	GetPatientsByDoctor(doctorID string) ([]string, error)
 }
 
 type Treatment struct {
@@ -23,7 +24,7 @@ func (t *Treatment) PatientTreatments(patientID string) ([]domain.LightTreatment
 		fmt.Println("Error getting treatment entities: ", err)
 	}
 	fmt.Println("END PatientTreatments handler")
-	return treatments, nil
+	return treatments, err
 }
 
 func (t *Treatment) GetTreatment(treatmentID string) (domain.Treatment, error) {
@@ -32,5 +33,16 @@ func (t *Treatment) GetTreatment(treatmentID string) (domain.Treatment, error) {
 		fmt.Println("Error getting treatment entities: ", err)
 	}
 	fmt.Printf("GetTreatemts, provider/handler")
-	return treatment, nil
+	return treatment, err
+}
+
+func (t *Treatment) DoctorPatients(doctorID string) ([]string, error) {
+	fmt.Println("START DoctorPatients handler")
+	patients, err := t.StorageProvider.GetPatientsByDoctor(doctorID)
+	if err != nil {
+		fmt.Println("Error getting patient IDs by doctor: ", err)
+		return nil, err
+	}
+	fmt.Println("END DoctorPatients handler")
+	return patients, nil
 }

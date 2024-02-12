@@ -29,6 +29,15 @@ func (msp *MockStorageProvider) TreatmentByID(treatmentID string) (domain.Treatm
 	}, nil
 }
 
+func (msp *MockStorageProvider) GetPatientsByDoctor(doctorID string) ([]string, error) {
+	// Simulate returning a list of patient ids for testing purposes
+	return []string{
+		"asdasd",
+		"xyzxyz",
+		"asd123",
+	}, nil
+}
+
 func TestGetTreatments(t *testing.T) {
 	mockStorage := &MockStorageProvider{}
 
@@ -54,5 +63,19 @@ func TestTreatmentByID(t *testing.T) {
 
 	if treatment.TreatmentID != "1" {
 		t.Errorf("Expected treatment with ID '1', got '%s'", treatment.TreatmentID)
+	}
+}
+
+func TestGetPatientsByDoctor(t *testing.T) {
+	mockStorage := &MockStorageProvider{}
+
+	patients, err := mockStorage.GetPatientsByDoctor("testDoctorID")
+
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+
+	if len(patients) != 3 {
+		t.Errorf("Expected 3 patients, got %d", len(patients))
 	}
 }
