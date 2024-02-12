@@ -3,9 +3,7 @@ syntax = "proto3";
 package alt_team.process_execution_service;
 
 import "google/protobuf/timestamp.proto";
-// import "validate/validate.proto";
 import "google/protobuf/wrappers.proto";
-// import "treatment.proto";
 
 option go_package = "./process_execution_service";
 
@@ -13,18 +11,8 @@ option go_package = "./process_execution_service";
 service ProcessExecutionService{
     rpc GetTreatmentsByPatientID(GetTreatmentsByPatientIDRequest) returns (GetTreatmentsByPatientIDResponse);
     rpc GetTreatmentByID(GetTreatmentByIDRequest) returns (GetTreatmentByIDResponse);
-    // rpc GetBookList(GetBookListRequest) returns (GetBookListResponse) {}
+    rpc GetPatientsByDoctorID(GetPatientsByDoctorIDRequest) returns (GetPatientsByDoctorIDResponse);
 }
-
-// message Book {
-//     string title = 1;
-//     string author = 2;
-//     int32 page_count = 3;
-//     optional string language = 4;
-//   }
-  
-//   message GetBookListRequest {}
-//   message GetBookListResponse { repeated Book books = 1; }
 
 message GetTreatmentsByPatientIDRequest{
     string patient_id = 1;
@@ -34,8 +22,6 @@ message GetTreatmentsByPatientIDRequest{
 message GetTreatmentsByPatientIDResponse{
     string patient_id = 1;
     repeated TreatmentLight treatment_light = 2;
-
-
 }
 
 message TreatmentLight{
@@ -47,13 +33,19 @@ message TreatmentLight{
 
 message GetTreatmentByIDRequest{
     string treatment_id = 1;
-
 }
-
 
 message GetTreatmentByIDResponse{
     Treatment treatment = 1;
+}
 
+message GetPatientsByDoctorIDRequest{
+    string doctor_id = 1;
+}
+
+message GetPatientsByDoctorIDResponse{
+    string doctor_id = 1;
+    repeated string patient_ids = 2;
 }
 
 message Treatment{
@@ -77,7 +69,7 @@ enum TreatmentStatus {
   }
 
 
-  message Task{
+message Task {
     int64 id = 1; // id of the task (unique for this schema)
     int32 level = 2; // level of the task
     string name = 3; //name aof the task
@@ -89,7 +81,6 @@ enum TreatmentStatus {
     google.protobuf.StringValue comment = 9; // comment
 }
 
-
 enum TaskStatus {
     TASK_STATUS_UNSPECIFIED = 0;
     TASK_STATUS_NOT_STARTED = 1;
@@ -97,7 +88,6 @@ enum TaskStatus {
     TASK_STATUS_BLOCKED = 3;
     TASK_STATUS_DONE = 4;
 }
-
 
 message PatternInstance{
     string instance_id = 1;
@@ -111,7 +101,6 @@ message PatternInstance{
     repeated Task tasks = 9;// tasks
 }
 
-
 enum PatternInstanceStatus {
     PATTERN_INSTANCE_STATUS_STATUS_UNSPECIFIED = 0;
     PATTERN_INSTANCE_STATUS_NOT_STARTED = 1;
@@ -119,4 +108,4 @@ enum PatternInstanceStatus {
     PATTERN_INSTANCE_STATUS_STATUS_BLOCKED = 3;
     PATTERN_INSTANCE_STATUS_STATUS_COMPLETED = 4;
     PATTERN_INSTANCE_STATUS_STATUS_CANCELLED = 5;
-  }
+}
