@@ -16,7 +16,6 @@ service ProcessExecutionService{
 
 message GetTreatmentsByPatientIDRequest{
     string patient_id = 1;
-
 }
 
 message GetTreatmentsByPatientIDResponse{
