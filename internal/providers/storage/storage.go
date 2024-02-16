@@ -137,6 +137,7 @@ func (s *Storage) TreatmentByID(treatmentID string) (domain.Treatment, error) {
 	fmt.Printf("START TreatmentByID, provider/storage with ID: %s\n", treatmentID)
 	// Search treatment in our map
 	treatment, ok := s.treatments[treatmentID]
+
 	if !ok {
 		// If we don't find it, return error with empty treatment
 		return domain.Treatment{}, fmt.Errorf("treatment with ID %s not found", treatmentID)

@@ -59,6 +59,8 @@ func (s *TreatmentServer) GetTreatmentByID(
 		return nil, err
 	}
 
+	fmt.Println(domain.TreatmentToGRPC(&treatment))
+
 	response := &process_execution_service.GetTreatmentByIDResponse{
 		Treatment: domain.TreatmentToGRPC(&treatment),
 	}

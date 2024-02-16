@@ -180,9 +180,9 @@ func GenerateRandomTask() domain.Task {
 	responsible := string(result)
 
 	// Generate random task blocked by
-	blockedBy := make([]interface{}, rand.Intn(5)) // Random number of blocked tasks
+	blockedBy := make([]int64, rand.Intn(5)) // Random number of blocked tasks
 	for i := range blockedBy {
-		blockedBy[i] = rand.Intn(1000) // Assuming task IDs are integers
+		blockedBy[i] = int64(rand.Intn(1000)) // Assuming task IDs are integers
 	}
 
 	// Generate random task comment

@@ -41,7 +41,7 @@ func (mth *MockTreatmentHandler) GetTreatment(treatmentID string) (domain.Treatm
 			Level:       1,
 			Name:        "Test Task",
 			Status:      "Pending",
-			BlockedBy:   []interface{}{},
+			BlockedBy:   []int64{},
 			Responsible: "John Doe",
 			TimeLimit:   time.Now().Unix(),
 			Children:    []domain.Task{},
