@@ -1,4 +1,4 @@
-package api
+package api_test
 
 import (
 	"context"
@@ -6,6 +6,7 @@ import (
 	"testing"
 	"time"
 
+	"server/internal/api"
 	"server/internal/domain"
 
 	process_execution_service "server/proto"
@@ -91,7 +92,7 @@ func (mth *MockTreatmentHandler) DoctorPatients(doctorID string) ([]string, erro
 
 func TestGetTreatmentsByPatientID(t *testing.T) {
 	mockHandler := &MockTreatmentHandler{}
-	apiHandler := TreatmentServer{TreatmentHandler: mockHandler}
+	apiHandler := api.TreatmentServer{TreatmentHandler: mockHandler}
 
 	tests := []struct {
 		name           string
@@ -139,7 +140,7 @@ func TestGetTreatmentsByPatientID(t *testing.T) {
 
 func TestGetTreatmentByID(t *testing.T) {
 	mockHandler := &MockTreatmentHandler{}
-	apiHandler := TreatmentServer{TreatmentHandler: mockHandler}
+	apiHandler := api.TreatmentServer{TreatmentHandler: mockHandler}
 
 	tests := []struct {
 		name          string
@@ -189,7 +190,7 @@ func TestGetTreatmentByID(t *testing.T) {
 
 func TestGetDoctorPatients(t *testing.T) {
 	mockHandler := &MockTreatmentHandler{}
-	apiHandler := TreatmentServer{TreatmentHandler: mockHandler}
+	apiHandler := api.TreatmentServer{TreatmentHandler: mockHandler}
 
 	tests := []struct {
 		name           string

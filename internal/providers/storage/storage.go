@@ -107,30 +107,26 @@ func (s *Storage) PrintTreatments() {
 }
 
 func (s *Storage) GetTreatments(patientID string) ([]domain.LightTreatment, error) {
-	fmt.Println(" START GetTreatments, provider/storage")
-	var treatments []domain.LightTreatment
-	for i := 0; i < rand.Intn(10)+1; i++ {
-		var lightTreatment domain.LightTreatment
-		curLightTreatment, err := GenerateRandomLightTreatmentJSON()
-		if err != nil {
-			fmt.Println("GetTreatments, provider/storage Error generating random LightTreatment JSON")
-			fmt.Println(err)
+	fmt.Println("START GetTreatments, provider/storage")
+	var lightTreatments []domain.LightTreatment
+
+	// Iterating through treatments in storage
+	for _, t := range s.treatments {
+		if t.PatientID != patientID {
 			continue
 		}
 
-		err = json.Unmarshal([]byte(curLightTreatment), &lightTreatment)
-		if err != nil {
-			fmt.Println("GetTreatments, provider/storage Error unmarshaling LightTreatment")
-			fmt.Println(err)
-			continue
+		lightTreatment := domain.LightTreatment{
+			TreatmentID:       t.TreatmentID,
+			TreatmentName:     t.PatternInstance.SchemaName,
+			TreatmentStatus:   t.Status,
+			TreatmentProgress: rand.Intn(100) + 1, // TODO: compute progress
 		}
-
-		treatments = append(treatments, lightTreatment)
+		lightTreatments = append(lightTreatments, lightTreatment)
 	}
 
-	fmt.Println("END GetTreatments, provider/storage ")
-
-	return treatments, nil
+	fmt.Println("END GetTreatments, provider/storage")
+	return lightTreatments, nil
 }
 
 func (s *Storage) TreatmentByID(treatmentID string) (domain.Treatment, error) {
@@ -150,12 +146,14 @@ func (s *Storage) GetPatientsByDoctor(doctorID string) ([]string, error) {
 	fmt.Println(" START GetPatientsByDoctor, provider/storage")
 	var patients []string
 
-	for i := 0; i < rand.Intn(10)+1; i++ {
-		var patient = GenerateRandomString(6)
-		patients = append(patients, patient)
+	// Iterating through treatments in storage
+	for _, t := range s.treatments {
+		// Checking if the treatment belongs to the given doctor
+		if t.DoctorID == doctorID {
+			patients = append(patients, t.PatientID)
+		}
 	}
 
 	fmt.Println("END GetPatientsByDoctor, provider/storage ")
-
 	return patients, nil
 }
