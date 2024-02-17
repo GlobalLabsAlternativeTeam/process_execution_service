@@ -25,7 +25,12 @@ func main() {
 	}
 
 	// Create instances of your dependencies (handlers, storage, etc.)
-	storageService := &storage.Storage{}
+	storageService, err := storage.NewStorage("./data/storage.json")
+	if err != nil {
+		log.Fatalf("Failed to create storage: %v", err)
+	}
+	storageService.PrintTreatments()
+
 	treatmentHandler := &treatment.Treatment{StorageProvider: storageService}
 	apiService := &api.TreatmentServer{TreatmentHandler: treatmentHandler}
 

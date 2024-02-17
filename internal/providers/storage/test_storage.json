@@ -1,0 +1,177 @@
+[
+  {
+    "treatment_id": "treatment001",
+    "doctor_id": "doc001",
+    "patient_id": "pat001",
+    "status": "RUNNING",
+    "started_at": "2024-02-14T08:00:00Z",
+    "finished_at": "2024-02-14T10:00:00Z",
+    "deleted_at": "2024-02-14T12:00:00Z",
+    "pattern_instance": {
+      "schema_instance_id": "instance001",
+      "status": "RUNNING",
+      "schema_id": "pattern001",
+      "author_id": "aut001",
+      "schema_name": "Pattern 1",
+      "created_at": "2024-02-14T08:00:00Z",
+      "updated_at": "2024-02-14T08:00:00Z",
+      "deleted_at": "2024-02-14T12:00:00Z",
+      "tasks": [
+        {
+          "id": 1,
+          "level": 1,
+          "name": "Task 1",
+          "status": "NOT_STARTED",
+          "blocked_by": [],
+          "responsible": "doc002",
+          "time_limit": 10,
+          "children": [],
+          "comment": {
+            "value": ""
+          }
+        }
+      ]
+    }
+  },
+  {
+    "treatment_id": "treatment002",
+    "doctor_id": "doc002",
+    "patient_id": "pat002",
+    "status": "RUNNING",
+    "started_at": "2024-02-15T08:00:00Z",
+    "finished_at": "2024-02-15T10:00:00Z",
+    "deleted_at": "2024-02-15T12:00:00Z",
+    "pattern_instance": {
+      "schema_instance_id": "instance002",
+      "status": "RUNNING",
+      "schema_id": "pattern002",
+      "author_id": "aut002",
+      "schema_name": "Pattern 2",
+      "created_at": "2024-02-15T08:00:00Z",
+      "updated_at": "2024-02-15T08:00:00Z",
+      "deleted_at": "2024-02-15T12:00:00Z",
+      "tasks": [
+        {
+          "id": 1,
+          "level": 1,
+          "name": "Task 1",
+          "status": "NOT_STARTED",
+          "blocked_by": [],
+          "responsible": "doc001",
+          "time_limit": 10,
+          "children": [],
+          "comment": {
+            "value": ""
+          }
+        }
+      ]
+    }
+  },
+  {
+    "treatment_id": "treatment003",
+    "doctor_id": "doc003",
+    "patient_id": "pat003",
+    "status": "RUNNING",
+    "started_at": "2024-02-16T08:00:00Z",
+    "finished_at": "2024-02-16T10:00:00Z",
+    "deleted_at": "2024-02-16T12:00:00Z",
+    "pattern_instance": {
+      "schema_instance_id": "instance003",
+      "status": "RUNNING",
+      "schema_id": "pattern003",
+      "author_id": "aut003",
+      "schema_name": "Pattern 3",
+      "created_at": "2024-02-16T08:00:00Z",
+      "updated_at": "2024-02-16T08:00:00Z",
+      "deleted_at": "2024-02-16T12:00:00Z",
+      "tasks": [
+        {
+          "id": 1,
+          "level": 1,
+          "name": "Task 1",
+          "status": "NOT_STARTED",
+          "blocked_by": [],
+          "responsible": "doc002",
+          "time_limit": 10,
+          "children": [],
+          "comment": {
+            "value": ""
+          }
+        }
+      ]
+    }
+  },
+  {
+    "treatment_id": "treatment004",
+    "doctor_id": "doc001",
+    "patient_id": "pat002",
+    "status": "RUNNING",
+    "started_at": "2024-02-17T08:00:00Z",
+    "finished_at": "2024-02-17T10:00:00Z",
+    "deleted_at": "2024-02-17T12:00:00Z",
+    "pattern_instance": {
+      "schema_instance_id": "instance004",
+      "status": "RUNNING",
+      "schema_id": "pattern004",
+      "author_id": "aut004",
+      "schema_name": "Pattern 4",
+      "created_at": "2024-02-17T08:00:00Z",
+      "updated_at": "2024-02-17T08:00:00Z",
+      "deleted_at": "2024-02-17T12:00:00Z",
+      "tasks": [
+        {
+          "id": 1,
+          "level": 1,
+          "name": "Task 1",
+          "status": "NOT_STARTED",
+          "blocked_by": [],
+          "responsible": "doc003",
+          "time_limit": 10,
+          "children": [],
+          "comment": {
+            "value": ""
+          }
+        },
+        {
+          "id": 2,
+          "level": 2,
+          "name": "Task 2",
+          "status": "BLOCKED",
+          "blocked_by": [1],
+          "responsible": "doc001",
+          "time_limit": 10,
+          "children": [],
+          "comment": {
+            "value": ""
+          }
+        },
+        {
+          "id": 3,
+          "level": 3,
+          "name": "Task 3",
+          "status": "BLOCKED",
+          "blocked_by": [2],
+          "responsible": "doc002",
+          "time_limit": 10,
+          "children": [],
+          "comment": {
+            "value": ""
+          }
+        },
+        {
+          "id": 4,
+          "level": 4,
+          "name": "Task 4",
+          "status": "BLOCKED",
+          "blocked_by": [3],
+          "responsible": "doc002",
+          "time_limit": 10,
+          "children": [],
+          "comment": {
+            "value": ""
+          }
+        }
+      ]
+    }
+  }
+]

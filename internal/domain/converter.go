@@ -48,21 +48,12 @@ func TasksToGRPC(tasks []Task) []*process_execution_service.Task {
 }
 
 func TaskToGRPC(t *Task) *process_execution_service.Task {
-	var blockedBy []int64
-	for _, v := range t.BlockedBy {
-		if intValue, ok := v.(int); ok {
-			blockedBy = append(blockedBy, int64(intValue))
-		} else if int64Value, ok := v.(int64); ok {
-			blockedBy = append(blockedBy, int64Value)
-		}
-		// Add more type conversions if needed for other cases
-	}
 	return &process_execution_service.Task{
 		Id:          int64(t.ID),
 		Level:       int32(t.Level),
 		Name:        t.Name,
 		Status:      convertTaskStatus(t.Status),
-		BlockedBy:   blockedBy,
+		BlockedBy:   t.BlockedBy,
 		Responsible: t.Responsible,
 		TimeLimit:   t.TimeLimit,
 		Children:    TasksToGRPC(t.Children),
