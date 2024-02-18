@@ -11,6 +11,12 @@ import (
 	"server/internal/handlers/treatment"
 )
 
+// Mock data and variables
+
+var now time.Time = time.Now()
+
+// MockStorageProvider definitions
+
 type MockStorageProvider struct{}
 
 func (msp *MockStorageProvider) GetTreatments(patientID string) ([]domain.LightTreatment, error) {
@@ -33,6 +39,63 @@ func (msp *MockStorageProvider) GetTreatments(patientID string) ([]domain.LightT
 	}
 	return nil, errors.New("Patient not found")
 }
+
+func (msp *MockStorageProvider) TreatmentByID(treatmentID string) (domain.Treatment, error) {
+	if treatmentID == "validID" {
+		task := domain.Task{
+			ID:          1,
+			Level:       1,
+			Name:        "Test Task",
+			Status:      "Pending",
+			BlockedBy:   []int64{},
+			Responsible: "John Doe",
+			TimeLimit:   3600,
+			Children:    []domain.Task{},
+			Comment: struct {
+				Value string `json:"value"`
+			}{
+				Value: "Test comment",
+			},
+		}
+		patternInstance := domain.PatternInstance{
+			SchemaInstanceID:      "schemaID",
+			SchemaID:              "schemaID",
+			AuthorID:              "authorID",
+			SchemaName:            "Test Schema",
+			PatternInstanceStatus: "Active",
+			CreatedAt:             now,
+			UpdatedAt:             now,
+			DeletedAt:             time.Time{},
+			Tasks:                 []domain.Task{task},
+		}
+		return domain.Treatment{
+			TreatmentID:     "validID",
+			DoctorID:        "doctorID",
+			PatientID:       "patientID",
+			Status:          "InProgress",
+			StartedAt:       "2024-02-08",
+			FinishedAt:      "",
+			DeletedAt:       "",
+			PatternInstance: patternInstance,
+		}, nil
+	}
+	return domain.Treatment{}, errors.New("Treatment not found")
+}
+
+func (msp *MockStorageProvider) GetPatientsByDoctor(doctorID string) ([]string, error) {
+	if doctorID != "validDoctorID" {
+		return nil, errors.New("Doctor not found")
+	}
+
+	patients := []string{
+		"asdasd",
+		"xyzxyz",
+		"asd123",
+	}
+	return patients, nil
+}
+
+// Tests
 
 func TestGetTreatments(t *testing.T) {
 	mockStorageProvider := &MockStorageProvider{}
@@ -73,48 +136,6 @@ func TestGetTreatments(t *testing.T) {
 	})
 }
 
-func (msp *MockStorageProvider) TreatmentByID(treatmentID string) (domain.Treatment, error) {
-	if treatmentID == "validID" {
-		task := domain.Task{
-			ID:          1,
-			Level:       1,
-			Name:        "Test Task",
-			Status:      "Pending",
-			BlockedBy:   []int64{},
-			Responsible: "John Doe",
-			TimeLimit:   time.Now().Unix(),
-			Children:    []domain.Task{},
-			Comment: struct {
-				Value string `json:"value"`
-			}{
-				Value: "Test comment",
-			},
-		}
-		patternInstance := domain.PatternInstance{
-			SchemaInstanceID:      "schemaID",
-			SchemaID:              "schemaID",
-			AuthorID:              "authorID",
-			SchemaName:            "Test Schema",
-			PatternInstanceStatus: "Active",
-			CreatedAt:             time.Now(),
-			UpdatedAt:             time.Now(),
-			DeletedAt:             time.Time{},
-			Tasks:                 []domain.Task{task},
-		}
-		return domain.Treatment{
-			TreatmentID:     "validID",
-			DoctorID:        "doctorID",
-			PatientID:       "patientID",
-			Status:          "InProgress",
-			StartedAt:       "2024-02-08",
-			FinishedAt:      "",
-			DeletedAt:       "",
-			PatternInstance: patternInstance,
-		}, nil
-	}
-	return domain.Treatment{}, errors.New("Treatment not found")
-}
-
 func TestGetTreatment(t *testing.T) {
 	mockStorageProvider := &MockStorageProvider{}
 	treatmentService := &treatment.Treatment{StorageProvider: mockStorageProvider}
@@ -134,8 +155,8 @@ func TestGetTreatment(t *testing.T) {
 				AuthorID:              "authorID",
 				SchemaName:            "Test Schema",
 				PatternInstanceStatus: "Active",
-				CreatedAt:             time.Now(),
-				UpdatedAt:             time.Now(),
+				CreatedAt:             now,
+				UpdatedAt:             now,
 				DeletedAt:             time.Time{},
 				Tasks: []domain.Task{
 					{
@@ -145,7 +166,7 @@ func TestGetTreatment(t *testing.T) {
 						Status:      "Pending",
 						BlockedBy:   []int64{},
 						Responsible: "John Doe",
-						TimeLimit:   time.Now().Unix(),
+						TimeLimit:   3600,
 						Children:    []domain.Task{},
 						Comment: struct {
 							Value string `json:"value"`
@@ -174,19 +195,6 @@ func TestGetTreatment(t *testing.T) {
 			t.Error("Expected an error, but got nil")
 		}
 	})
-}
-
-func (msp *MockStorageProvider) GetPatientsByDoctor(doctorID string) ([]string, error) {
-	if doctorID != "validDoctorID" {
-		return nil, errors.New("Doctor not found")
-	}
-
-	patients := []string{
-		"asdasd",
-		"xyzxyz",
-		"asd123",
-	}
-	return patients, nil
 }
 
 func TestGetPatientsByDoctor(t *testing.T) {
