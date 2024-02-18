@@ -61,6 +61,46 @@ func TaskToGRPC(t *Task) *process_execution_service.Task {
 	}
 }
 
+func ProtoToSchema(proto *process_execution_service.Schema) Schema {
+	// Convert process_execution_service.Schema to domain.Schema
+	return Schema{
+		SchemaID:   proto.SchemaId,
+		AuthorID:   proto.AuthorId,
+		SchemaName: proto.SchemaName,
+		CreatedAt:  proto.CreatedAt.AsTime(),
+		UpdatedAt:  proto.UpdatedAt.AsTime(),
+		DeletedAt:  proto.DeletedAt.AsTime(),
+		Tasks:      ProtoToTasks(proto.Tasks),
+	}
+}
+
+func ProtoToTasks(protoTasks []*process_execution_service.Task) []Task {
+	tasks := make([]Task, len(protoTasks))
+	for i, protoTask := range protoTasks {
+		var comment *struct {
+			Value string `json:"value"`
+		}
+		if protoTask.Comment != nil {
+			val := protoTask.Comment.GetValue() // Extract string value from wrapperspb.StringValue
+			comment = &struct {
+				Value string `json:"value"`
+			}{Value: val}
+		}
+		tasks[i] = Task{
+			ID:          int(protoTask.Id),
+			Level:       int(protoTask.Level),
+			Name:        protoTask.Name,
+			Status:      convertProroToTaskStatus(protoTask.Status),
+			BlockedBy:   protoTask.BlockedBy,
+			Responsible: protoTask.Responsible,
+			TimeLimit:   protoTask.TimeLimit,
+			Children:    ProtoToTasks(protoTask.Children),
+			Comment:     *comment,
+		}
+	}
+	return tasks
+}
+
 func convertPatternInstanceStatus(status string) process_execution_service.PatternInstanceStatus {
 	switch status {
 	case "NOT_STARTED":
@@ -121,5 +161,20 @@ func convertTaskStatus(status string) process_execution_service.TaskStatus {
 		return process_execution_service.TaskStatus_TASK_STATUS_DONE
 	default:
 		return process_execution_service.TaskStatus_TASK_STATUS_UNSPECIFIED
+	}
+}
+
+func convertProroToTaskStatus(status process_execution_service.TaskStatus) string {
+	switch status.String() {
+	case "TASK_STATUS_NOT_STARTED":
+		return "NOT_STARTED"
+	case "TASK_STATUS_IN_PROGRESS":
+		return "IN_PROGRESS"
+	case "TASK_STATUS_BLOCKED":
+		return "BLOCKED"
+	case "TASK_STATUS_DONE":
+		return "DONE"
+	default:
+		return "STATUS_UNSPECIFIED"
 	}
 }

@@ -90,6 +90,10 @@ func (mth *MockTreatmentHandler) DoctorPatients(doctorID string) ([]string, erro
 	return patients, nil
 }
 
+func (mth *MockTreatmentHandler) CreateTreatment(doctorID string, patientID string, schema domain.Schema) (domain.Treatment, error) {
+	return domain.Treatment{}, nil
+}
+
 func TestGetTreatmentsByPatientID(t *testing.T) {
 	mockHandler := &MockTreatmentHandler{}
 	apiHandler := api.TreatmentServer{TreatmentHandler: mockHandler}

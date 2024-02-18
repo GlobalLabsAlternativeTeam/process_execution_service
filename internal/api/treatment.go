@@ -11,6 +11,7 @@ type TreatmentHandler interface {
 	PatientTreatments(patientID string) ([]domain.LightTreatment, error)
 	GetTreatment(treatmentID string) (domain.Treatment, error)
 	DoctorPatients(doctorID string) ([]string, error)
+	CreateTreatment(doctorID string, patientID string, schema domain.Schema) (domain.Treatment, error)
 }
 
 type TreatmentServer struct {
@@ -86,5 +87,29 @@ func (s *TreatmentServer) GetPatientsByDoctorID(
 	}
 	fmt.Println("END GetPatientsByDoctorID API")
 
+	return response, nil
+}
+
+func (s *TreatmentServer) CreateTreatment(ctx context.Context, req *process_execution_service.CreateTreatmentRequest,
+) (*process_execution_service.CreateTreatmentResponse, error) {
+	fmt.Println("START CreateTreatment API")
+	doctorID := req.DoctorId
+	patientID := req.PatientId
+	proto_schema := req.Schema
+
+	schema := domain.ProtoToSchema(proto_schema)
+
+	treatment, err := s.TreatmentHandler.CreateTreatment(doctorID, patientID, schema)
+
+	if err != nil {
+		fmt.Println("Error calling treatment API, CreateInstance ", err)
+		return nil, err
+	}
+
+	response := &process_execution_service.CreateTreatmentResponse{
+		Treatment: domain.TreatmentToGRPC(&treatment),
+	}
+
+	fmt.Println("END CreateTreatment API")
 	return response, nil
 }

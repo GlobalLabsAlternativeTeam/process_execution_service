@@ -5,9 +5,13 @@ package storage
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 	"server/internal/domain"
+	"time"
+
+	"github.com/google/uuid"
 )
 
 type Storage struct {
@@ -156,4 +160,38 @@ func (s *Storage) GetPatientsByDoctor(doctorID string) ([]string, error) {
 
 	fmt.Println("END GetPatientsByDoctor, provider/storage ")
 	return patients, nil
+}
+
+func (s *Storage) CreateTreatment(doctorID string,
+	patientID string, status string, patternInstance domain.PatternInstance) (domain.Treatment, error) {
+
+	treatmentID := uuid.New().String()
+	for {
+		if _, ok := s.treatments[treatmentID]; !ok {
+			break
+		}
+		treatmentID = uuid.New().String()
+	}
+
+	treatment := domain.Treatment{
+		TreatmentID:     treatmentID,
+		DoctorID:        doctorID,
+		PatientID:       patientID,
+		Status:          status,
+		StartedAt:       time.Now().String(),
+		FinishedAt:      "",
+		DeletedAt:       "",
+		PatternInstance: patternInstance,
+	}
+
+	s.treatments[treatmentID] = treatment
+
+	err := s.SaveToFile()
+	if err != nil {
+		delete(s.treatments, treatmentID) // revert changes to avoid broken state
+		log.Fatalf("error saving storage to file: %v", err)
+		return domain.Treatment{}, fmt.Errorf("internal error while creation")
+	}
+
+	return treatment, nil
 }

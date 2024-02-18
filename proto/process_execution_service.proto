@@ -12,10 +12,12 @@ service ProcessExecutionService{
     rpc GetTreatmentsByPatientID(GetTreatmentsByPatientIDRequest) returns (GetTreatmentsByPatientIDResponse);
     rpc GetTreatmentByID(GetTreatmentByIDRequest) returns (GetTreatmentByIDResponse);
     rpc GetPatientsByDoctorID(GetPatientsByDoctorIDRequest) returns (GetPatientsByDoctorIDResponse);
+    rpc CompleteTasks(CompleteTasksRequest) returns (CompleteTasksResponse);
+    rpc CreateTreatment(CreateTreatmentRequest) returns (CreateTreatmentResponse);
 }
 
 message GetTreatmentsByPatientIDRequest{
-    string patient_id = 1;
+    string patient_id = 1;  
 }
 
 message GetTreatmentsByPatientIDResponse{
@@ -46,6 +48,28 @@ message GetPatientsByDoctorIDResponse{
     string doctor_id = 1;
     repeated string patient_ids = 2;
 }
+
+message CompleteTasksRequest{
+    string instance_id = 1;
+    repeated int64 task_ids = 2;
+}
+
+
+message CompleteTasksResponse{
+    repeated TaskLight tasks_light = 1;
+}
+
+
+message CreateTreatmentRequest{
+    Schema schema = 1;
+    string patient_id = 2;
+    string doctor_id = 3;
+}
+
+message CreateTreatmentResponse{
+    Treatment treatment = 1;
+}
+
 
 message Treatment{
     string treatment_id = 1;
@@ -107,4 +131,22 @@ enum PatternInstanceStatus {
     PATTERN_INSTANCE_STATUS_STATUS_BLOCKED = 3;
     PATTERN_INSTANCE_STATUS_STATUS_COMPLETED = 4;
     PATTERN_INSTANCE_STATUS_STATUS_CANCELLED = 5;
+}
+
+message Schema{
+    string schema_id = 1;
+    string author_id = 2;
+    string schema_name = 3;
+    google.protobuf.Timestamp created_at = 4;
+    google.protobuf.Timestamp updated_at = 5;
+    google.protobuf.Timestamp deleted_at = 6;
+    repeated Task tasks = 7;// tasks
+}
+
+
+
+
+message TaskLight{
+    int64 task_id = 1;
+    TaskStatus status = 2;
 }

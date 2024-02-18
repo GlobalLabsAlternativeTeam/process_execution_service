@@ -95,6 +95,11 @@ func (msp *MockStorageProvider) GetPatientsByDoctor(doctorID string) ([]string, 
 	return patients, nil
 }
 
+func (msp *MockStorageProvider) CreateTreatment(doctorID string,
+	patientID string, status string, patternInstance domain.PatternInstance) (domain.Treatment, error) {
+	return domain.Treatment{}, nil
+}
+
 // Tests
 
 func TestGetTreatments(t *testing.T) {

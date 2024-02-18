@@ -38,3 +38,14 @@ type Treatment struct {
 	DeletedAt       string          `json:"deleted_at"`
 	PatternInstance PatternInstance `json:"pattern_instance"`
 }
+
+type Schema struct {
+	SchemaID              string    `json:"schema_id"`
+	AuthorID              string    `json:"author_id"`
+	SchemaName            string    `json:"schema_name"`
+	PatternInstanceStatus string    `json:"status"`
+	CreatedAt             time.Time `json:"created_at"`
+	UpdatedAt             time.Time `json:"updated_at"`
+	DeletedAt             time.Time `json:"deleted_at"`
+	Tasks                 []Task    `json:"tasks"`
+}
