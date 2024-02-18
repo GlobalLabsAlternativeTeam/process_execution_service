@@ -12,6 +12,7 @@ type TreatmentHandler interface {
 	GetTreatment(treatmentID string) (domain.Treatment, error)
 	DoctorPatients(doctorID string) ([]string, error)
 	CreateTreatment(doctorID string, patientID string, schema domain.Schema) (domain.Treatment, error)
+	CompleteTasks(treatmentID string, taskIDs []int64) []domain.TaskLight
 }
 
 type TreatmentServer struct {
@@ -112,4 +113,28 @@ func (s *TreatmentServer) CreateTreatment(ctx context.Context, req *process_exec
 
 	fmt.Println("END CreateTreatment API")
 	return response, nil
+}
+
+func (s *TreatmentServer) CompleteTasks(ctx context.Context, req *process_execution_service.CompleteTasksRequest,
+) (*process_execution_service.CompleteTasksResponse, error) {
+	fmt.Println("START CompleteTasks API")
+	treatmentID := req.InstanceId
+	tasks := req.TaskIds
+
+	result := s.TreatmentHandler.CompleteTasks(treatmentID, tasks)
+
+	var grpcTasksLight []*process_execution_service.TaskLight
+	for _, tl := range result {
+		grpcTasksLight = append(grpcTasksLight, &process_execution_service.TaskLight{
+			TaskId: int64(tl.TaskID),
+			Status: domain.ConvertTaskStatus(tl.Status),
+		})
+	}
+
+	response := &process_execution_service.CompleteTasksResponse{
+		TasksLight: grpcTasksLight,
+	}
+	fmt.Println("END CompleteTasks API")
+	return response, nil
+
 }

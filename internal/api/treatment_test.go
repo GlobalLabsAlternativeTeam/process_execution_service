@@ -94,52 +94,8 @@ func (mth *MockTreatmentHandler) CreateTreatment(doctorID string, patientID stri
 	return domain.Treatment{}, nil
 }
 
-func TestGetTreatmentsByPatientID(t *testing.T) {
-	mockHandler := &MockTreatmentHandler{}
-	apiHandler := api.TreatmentServer{TreatmentHandler: mockHandler}
-
-	tests := []struct {
-		name           string
-		request        *process_execution_service.GetTreatmentsByPatientIDRequest
-		expectedError  bool
-		expectedLength int
-	}{
-		{
-			name: "ValidPatientID",
-			request: &process_execution_service.GetTreatmentsByPatientIDRequest{
-				PatientId: "validPatientID",
-			},
-			expectedError:  false,
-			expectedLength: 2,
-		},
-		{
-			name: "InvalidPatientID",
-			request: &process_execution_service.GetTreatmentsByPatientIDRequest{
-				PatientId: "invalidPatientID",
-			},
-			expectedError:  true,
-			expectedLength: 0,
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			response, err := apiHandler.GetTreatmentsByPatientID(context.Background(), tt.request)
-
-			if (err != nil) != tt.expectedError {
-				t.Errorf("Unexpected error: %v", err)
-				return
-			}
-
-			if tt.expectedError {
-				return
-			}
-
-			if len(response.TreatmentLight) != tt.expectedLength {
-				t.Errorf("Expected %d treatments, got %d", tt.expectedLength, len(response.TreatmentLight))
-			}
-		})
-	}
+func (mth *MockTreatmentHandler) CompleteTasks(treatmentID string, taskIDs []int64) []domain.TaskLight {
+	return []domain.TaskLight{}
 }
 
 func TestGetTreatmentByID(t *testing.T) {

@@ -1,69 +1,114 @@
 [
     {
-        "treatment_id": "treatment002",
-        "doctor_id": "doc002",
-        "patient_id": "pat002",
+        "treatment_id": "7ae7a302-42d7-452e-9fa3-e3a6898a2eca",
+        "doctor_id": "123123123",
+        "patient_id": "23123",
         "status": "RUNNING",
-        "started_at": "2024-02-15T08:00:00Z",
-        "finished_at": "2024-02-15T10:00:00Z",
-        "deleted_at": "2024-02-15T12:00:00Z",
+        "started_at": "2024-02-18 18:22:13.33372 +0100 CET m=+1073.399371418",
+        "finished_at": "",
+        "deleted_at": "",
         "pattern_instance": {
-            "schema_instance_id": "instance002",
-            "schema_id": "pattern002",
-            "author_id": "aut002",
-            "schema_name": "Pattern 2",
-            "status": "RUNNING",
-            "created_at": "2024-02-15T08:00:00Z",
-            "updated_at": "2024-02-15T08:00:00Z",
-            "deleted_at": "2024-02-15T12:00:00Z",
+            "schema_instance_id": "be8b62d1-1fd9-4d0b-8c98-001390122459",
+            "schema_id": "0e5e9f0f-a3d1-452c-a2fa-0f1b587b6323",
+            "author_id": "fdfdfd",
+            "schema_name": "12312312",
+            "status": "NOT_STARTED",
+            "created_at": "2024-02-18T18:22:13.333718+01:00",
+            "updated_at": "2024-02-18T18:22:13.333718+01:00",
+            "deleted_at": "0001-01-01T00:00:00Z",
             "tasks": [
                 {
-                    "id": 1,
-                    "level": 1,
-                    "name": "Task 1",
-                    "status": "NOT_STARTED",
-                    "blocked_by": [],
-                    "responsible": "doc001",
-                    "time_limit": 10,
-                    "children": [],
+                    "id": 12312,
+                    "level": 0,
+                    "name": "string",
+                    "status": "STATUS_UNSPECIFIED",
+                    "blocked_by": [
+                        0
+                    ],
+                    "responsible": "string",
+                    "time_limit": 0,
+                    "children": [
+                        {
+                            "id": 3123123,
+                            "level": 0,
+                            "name": "string",
+                            "status": "STATUS_UNSPECIFIED",
+                            "blocked_by": [
+                                0
+                            ],
+                            "responsible": "string",
+                            "time_limit": 0,
+                            "children": [],
+                            "comment": {
+                                "value": "Comment for Task 1"
+                            }
+                        }
+                    ],
                     "comment": {
-                        "value": ""
+                        "value": "Comment for Task 1"
                     }
                 }
             ]
         }
     },
     {
-        "treatment_id": "c41a3e48-7bd7-43f2-91c3-6d00064aca58",
-        "doctor_id": "5fcb299a-6c36-486c-9271-e313eb51032e",
-        "patient_id": "d97e067e-e866-446e-bdee-68cca6072432",
+        "treatment_id": "685b6c72-6d9d-4060-af72-751ef9ecd209",
+        "doctor_id": "123123123",
+        "patient_id": "23123",
         "status": "RUNNING",
-        "started_at": "2024-02-18 16:40:58.143395 +0100 CET m=+20.749610626",
+        "started_at": "2024-02-18 18:11:07.359715 +0100 CET m=+407.431671793",
         "finished_at": "",
         "deleted_at": "",
         "pattern_instance": {
-            "schema_instance_id": "dc148456-7634-4f3a-877e-d4c460240330",
-            "schema_id": "0b873408-ba6d-46b3-a40f-9afdbd020dcc",
-            "author_id": "98d84ec8-7ba1-4d7c-8642-157bd4445b36",
-            "schema_name": "Hello",
+            "schema_instance_id": "16cbe808-bffa-4717-b2ea-50f154343d64",
+            "schema_id": "dd19b4f7-a4be-4ec8-a48b-be6c4f769b4b",
+            "author_id": "Author1",
+            "schema_name": "Schema2",
             "status": "NOT_STARTED",
-            "created_at": "2024-02-18T16:40:58.143392+01:00",
-            "updated_at": "2024-02-18T16:40:58.143392+01:00",
+            "created_at": "2024-02-18T18:11:07.359713+01:00",
+            "updated_at": "2024-02-18T18:11:07.359713+01:00",
             "deleted_at": "0001-01-01T00:00:00Z",
             "tasks": [
                 {
-                    "id": 20,
-                    "level": 10,
-                    "name": "Hello",
-                    "status": "DONE",
+                    "id": 1,
+                    "level": 1,
+                    "name": "Task 1",
+                    "status": "NOT_STARTED",
                     "blocked_by": [
-                        20
+                        2
                     ],
-                    "responsible": "Hello",
-                    "time_limit": 20,
+                    "responsible": "Doctor1",
+                    "time_limit": 3600,
                     "children": [],
                     "comment": {
-                        "value": "Hello"
+                        "value": "Comment for Task 1"
+                    }
+                },
+                {
+                    "id": 2,
+                    "level": 1,
+                    "name": "Task 3",
+                    "status": "NOT_STARTED",
+                    "blocked_by": null,
+                    "responsible": "Doctor3",
+                    "time_limit": 5400,
+                    "children": [
+                        {
+                            "id": 3,
+                            "level": 2,
+                            "name": "Task 2",
+                            "status": "NOT_STARTED",
+                            "blocked_by": null,
+                            "responsible": "Doctor2",
+                            "time_limit": 7200,
+                            "children": [],
+                            "comment": {
+                                "value": "Comment for Task 2"
+                            }
+                        }
+                    ],
+                    "comment": {
+                        "value": "Comment for Task 3"
                     }
                 }
             ]
@@ -104,21 +149,21 @@
         }
     },
     {
-        "treatment_id": "13b1066e-fe4d-4083-8de9-521cd34fc187",
+        "treatment_id": "2986d299-30bb-4e22-9383-f17851547e80",
         "doctor_id": "5fcb299a-6c36-486c-9271-e313eb51032e",
         "patient_id": "d97e067e-e866-446e-bdee-68cca6072432",
         "status": "RUNNING",
-        "started_at": "2024-02-18 16:36:31.404523 +0100 CET m=+323.066056918",
+        "started_at": "2024-02-18 16:38:20.98568 +0100 CET m=+2.296812668",
         "finished_at": "",
         "deleted_at": "",
         "pattern_instance": {
-            "schema_instance_id": "3713344a-5939-43c8-8517-4f494c055c3f",
+            "schema_instance_id": "d7aba14b-cb32-441c-921c-27db0e89c84c",
             "schema_id": "0b873408-ba6d-46b3-a40f-9afdbd020dcc",
             "author_id": "98d84ec8-7ba1-4d7c-8642-157bd4445b36",
             "schema_name": "Hello",
             "status": "NOT_STARTED",
-            "created_at": "2024-02-18T16:36:31.404521+01:00",
-            "updated_at": "2024-02-18T16:36:31.404521+01:00",
+            "created_at": "2024-02-18T16:38:20.985679+01:00",
+            "updated_at": "2024-02-18T16:38:20.985679+01:00",
             "deleted_at": "0001-01-01T00:00:00Z",
             "tasks": [
                 {
@@ -140,108 +185,97 @@
         }
     },
     {
-        "treatment_id": "206303e0-d7bf-4a58-be6b-c4a4cc55aeb8",
-        "doctor_id": "5fcb299a-6c36-486c-9271-e313eb51032e",
-        "patient_id": "d97e067e-e866-446e-bdee-68cca6072432",
+        "treatment_id": "a4a28db6-03bf-44a9-b9ea-f233361d9fbb",
+        "doctor_id": "123123123",
+        "patient_id": "23123",
         "status": "RUNNING",
-        "started_at": "2024-02-18 16:31:10.6953 +0100 CET m=+2.358052793",
+        "started_at": "2024-02-18 18:13:54.498629 +0100 CET m=+574.569884709",
         "finished_at": "",
         "deleted_at": "",
         "pattern_instance": {
-            "schema_instance_id": "56d99591-0250-4644-9bcc-adf948cdd212",
-            "schema_id": "0b873408-ba6d-46b3-a40f-9afdbd020dcc",
-            "author_id": "98d84ec8-7ba1-4d7c-8642-157bd4445b36",
-            "schema_name": "Hello",
+            "schema_instance_id": "74cd5112-0993-46e8-93b6-c72dba85a6a1",
+            "schema_id": "dd19b4f7-a4be-4ec8-a48b-be6c4f769b4b",
+            "author_id": "Author1",
+            "schema_name": "Schema2",
             "status": "NOT_STARTED",
-            "created_at": "2024-02-18T16:31:10.695294+01:00",
-            "updated_at": "2024-02-18T16:31:10.695295+01:00",
+            "created_at": "2024-02-18T18:13:54.498627+01:00",
+            "updated_at": "2024-02-18T18:13:54.498627+01:00",
             "deleted_at": "0001-01-01T00:00:00Z",
             "tasks": [
                 {
-                    "id": 20,
-                    "level": 10,
-                    "name": "Hello",
-                    "status": "TASK_STATUS_UNSPECIFIED",
+                    "id": 1,
+                    "level": 1,
+                    "name": "Task 1",
+                    "status": "NOT_STARTED",
                     "blocked_by": [
-                        20
+                        2
                     ],
-                    "responsible": "Hello",
-                    "time_limit": 20,
+                    "responsible": "Doctor1",
+                    "time_limit": 3600,
                     "children": [],
                     "comment": {
-                        "value": "Hello"
+                        "value": "Comment for Task 1"
+                    }
+                },
+                {
+                    "id": 2,
+                    "level": 1,
+                    "name": "Task 3",
+                    "status": "NOT_STARTED",
+                    "blocked_by": null,
+                    "responsible": "Doctor3",
+                    "time_limit": 5400,
+                    "children": [
+                        {
+                            "id": 3,
+                            "level": 2,
+                            "name": "Task 2",
+                            "status": "NOT_STARTED",
+                            "blocked_by": null,
+                            "responsible": "Doctor2",
+                            "time_limit": 7200,
+                            "children": [],
+                            "comment": {
+                                "value": "Comment for Task 2"
+                            }
+                        }
+                    ],
+                    "comment": {
+                        "value": "Comment for Task 3"
                     }
                 }
             ]
         }
     },
     {
-        "treatment_id": "67c3cf45-c38e-4dae-91e7-c657b8330fb8",
-        "doctor_id": "5fcb299a-6c36-486c-9271-e313eb51032e",
-        "patient_id": "d97e067e-e866-446e-bdee-68cca6072432",
+        "treatment_id": "treatment002",
+        "doctor_id": "doc002",
+        "patient_id": "pat002",
         "status": "RUNNING",
-        "started_at": "2024-02-18 16:40:46.456005 +0100 CET m=+9.062265001",
-        "finished_at": "",
-        "deleted_at": "",
+        "started_at": "2024-02-15T08:00:00Z",
+        "finished_at": "2024-02-15T10:00:00Z",
+        "deleted_at": "2024-02-15T12:00:00Z",
         "pattern_instance": {
-            "schema_instance_id": "f0a43acc-e72f-43e2-ad80-d5d38dd9e940",
-            "schema_id": "0b873408-ba6d-46b3-a40f-9afdbd020dcc",
-            "author_id": "98d84ec8-7ba1-4d7c-8642-157bd4445b36",
-            "schema_name": "Hello",
-            "status": "NOT_STARTED",
-            "created_at": "2024-02-18T16:40:46.456003+01:00",
-            "updated_at": "2024-02-18T16:40:46.456003+01:00",
-            "deleted_at": "0001-01-01T00:00:00Z",
+            "schema_instance_id": "instance002",
+            "schema_id": "pattern002",
+            "author_id": "aut002",
+            "schema_name": "Pattern 2",
+            "status": "RUNNING",
+            "created_at": "2024-02-15T08:00:00Z",
+            "updated_at": "2024-02-15T08:00:00Z",
+            "deleted_at": "2024-02-15T12:00:00Z",
             "tasks": [
                 {
-                    "id": 20,
-                    "level": 10,
-                    "name": "Hello",
-                    "status": "IN_PROGRESS",
-                    "blocked_by": [
-                        20
-                    ],
-                    "responsible": "Hello",
-                    "time_limit": 20,
+                    "id": 1,
+                    "level": 1,
+                    "name": "Task 1",
+                    "status": "NOT_STARTED",
+                    "blocked_by": [],
+                    "responsible": "doc001",
+                    "time_limit": 10,
                     "children": [],
                     "comment": {
-                        "value": "Hello"
-                    }
-                }
-            ]
-        }
-    },
-    {
-        "treatment_id": "b1f723d3-36b0-408d-9d38-e1c562f02c6d",
-        "doctor_id": "5fcb299a-6c36-486c-9271-e313eb51032e",
-        "patient_id": "d97e067e-e866-446e-bdee-68cca6072432",
-        "status": "RUNNING",
-        "started_at": "2024-02-18 16:40:53.324362 +0100 CET m=+15.930595126",
-        "finished_at": "",
-        "deleted_at": "",
-        "pattern_instance": {
-            "schema_instance_id": "73176862-3e36-4d06-bd39-58fd587e3969",
-            "schema_id": "0b873408-ba6d-46b3-a40f-9afdbd020dcc",
-            "author_id": "98d84ec8-7ba1-4d7c-8642-157bd4445b36",
-            "schema_name": "Hello",
-            "status": "NOT_STARTED",
-            "created_at": "2024-02-18T16:40:53.324359+01:00",
-            "updated_at": "2024-02-18T16:40:53.324359+01:00",
-            "deleted_at": "0001-01-01T00:00:00Z",
-            "tasks": [
-                {
-                    "id": 20,
-                    "level": 10,
-                    "name": "Hello",
-                    "status": "BLOCKED",
-                    "blocked_by": [
-                        20
-                    ],
-                    "responsible": "Hello",
-                    "time_limit": 20,
-                    "children": [],
-                    "comment": {
-                        "value": "Hello"
+                        "value": ""
                     }
                 }
             ]
@@ -270,6 +304,78 @@
                     "level": 10,
                     "name": "Hello",
                     "status": "TASK_STATUS_NOT_STARTED",
+                    "blocked_by": [
+                        20
+                    ],
+                    "responsible": "Hello",
+                    "time_limit": 20,
+                    "children": [],
+                    "comment": {
+                        "value": "Hello"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "treatment_id": "3b8e7a61-1f87-49cb-9ae3-796cf0e0383b",
+        "doctor_id": "5fcb299a-6c36-486c-9271-e313eb51032e",
+        "patient_id": "d97e067e-e866-446e-bdee-68cca6072432",
+        "status": "RUNNING",
+        "started_at": "2024-02-18 16:38:06.050267 +0100 CET m=+5.121971167",
+        "finished_at": "",
+        "deleted_at": "",
+        "pattern_instance": {
+            "schema_instance_id": "31b732b7-559e-4b7f-bade-d049434eb7d2",
+            "schema_id": "0b873408-ba6d-46b3-a40f-9afdbd020dcc",
+            "author_id": "98d84ec8-7ba1-4d7c-8642-157bd4445b36",
+            "schema_name": "Hello",
+            "status": "NOT_STARTED",
+            "created_at": "2024-02-18T16:38:06.050261+01:00",
+            "updated_at": "2024-02-18T16:38:06.050261+01:00",
+            "deleted_at": "0001-01-01T00:00:00Z",
+            "tasks": [
+                {
+                    "id": 20,
+                    "level": 10,
+                    "name": "Hello",
+                    "status": "TASK_STATUS_NOT_STARTED",
+                    "blocked_by": [
+                        20
+                    ],
+                    "responsible": "Hello",
+                    "time_limit": 20,
+                    "children": [],
+                    "comment": {
+                        "value": "Hello"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "treatment_id": "b1f723d3-36b0-408d-9d38-e1c562f02c6d",
+        "doctor_id": "5fcb299a-6c36-486c-9271-e313eb51032e",
+        "patient_id": "d97e067e-e866-446e-bdee-68cca6072432",
+        "status": "RUNNING",
+        "started_at": "2024-02-18 16:40:53.324362 +0100 CET m=+15.930595126",
+        "finished_at": "",
+        "deleted_at": "",
+        "pattern_instance": {
+            "schema_instance_id": "73176862-3e36-4d06-bd39-58fd587e3969",
+            "schema_id": "0b873408-ba6d-46b3-a40f-9afdbd020dcc",
+            "author_id": "98d84ec8-7ba1-4d7c-8642-157bd4445b36",
+            "schema_name": "Hello",
+            "status": "NOT_STARTED",
+            "created_at": "2024-02-18T16:40:53.324359+01:00",
+            "updated_at": "2024-02-18T21:56:41.368086+01:00",
+            "deleted_at": "0001-01-01T00:00:00Z",
+            "tasks": [
+                {
+                    "id": 20,
+                    "level": 10,
+                    "name": "Hello",
+                    "status": "DONE",
                     "blocked_by": [
                         20
                     ],
@@ -397,21 +503,120 @@
         }
     },
     {
-        "treatment_id": "3b8e7a61-1f87-49cb-9ae3-796cf0e0383b",
+        "treatment_id": "c41a3e48-7bd7-43f2-91c3-6d00064aca58",
         "doctor_id": "5fcb299a-6c36-486c-9271-e313eb51032e",
         "patient_id": "d97e067e-e866-446e-bdee-68cca6072432",
         "status": "RUNNING",
-        "started_at": "2024-02-18 16:38:06.050267 +0100 CET m=+5.121971167",
+        "started_at": "2024-02-18 16:40:58.143395 +0100 CET m=+20.749610626",
         "finished_at": "",
         "deleted_at": "",
         "pattern_instance": {
-            "schema_instance_id": "31b732b7-559e-4b7f-bade-d049434eb7d2",
+            "schema_instance_id": "dc148456-7634-4f3a-877e-d4c460240330",
             "schema_id": "0b873408-ba6d-46b3-a40f-9afdbd020dcc",
             "author_id": "98d84ec8-7ba1-4d7c-8642-157bd4445b36",
             "schema_name": "Hello",
             "status": "NOT_STARTED",
-            "created_at": "2024-02-18T16:38:06.050261+01:00",
-            "updated_at": "2024-02-18T16:38:06.050261+01:00",
+            "created_at": "2024-02-18T16:40:58.143392+01:00",
+            "updated_at": "2024-02-18T16:40:58.143392+01:00",
+            "deleted_at": "0001-01-01T00:00:00Z",
+            "tasks": [
+                {
+                    "id": 20,
+                    "level": 10,
+                    "name": "Hello",
+                    "status": "DONE",
+                    "blocked_by": [
+                        20
+                    ],
+                    "responsible": "Hello",
+                    "time_limit": 20,
+                    "children": [],
+                    "comment": {
+                        "value": "Hello"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "treatment_id": "0fc39e36-3a27-4b3d-8065-2c2d856a1763",
+        "doctor_id": "123123123",
+        "patient_id": "23123",
+        "status": "RUNNING",
+        "started_at": "2024-02-18 18:14:31.512514 +0100 CET m=+611.583614334",
+        "finished_at": "",
+        "deleted_at": "",
+        "pattern_instance": {
+            "schema_instance_id": "b39c0db8-d89f-491f-945c-3c49b2c7295d",
+            "schema_id": "dd19b4f7-a4be-4ec8-a48b-be6c4f769b4b",
+            "author_id": "Author1",
+            "schema_name": "Schema2",
+            "status": "NOT_STARTED",
+            "created_at": "2024-02-18T18:14:31.512513+01:00",
+            "updated_at": "2024-02-18T21:58:26.868824+01:00",
+            "deleted_at": "0001-01-01T00:00:00Z",
+            "tasks": [
+                {
+                    "id": 1,
+                    "level": 1,
+                    "name": "Task 1",
+                    "status": "DONE",
+                    "blocked_by": [
+                        2
+                    ],
+                    "responsible": "Doctor1",
+                    "time_limit": 3600,
+                    "children": [],
+                    "comment": {
+                        "value": "Comment for Task 1"
+                    }
+                },
+                {
+                    "id": 2,
+                    "level": 1,
+                    "name": "Task 3",
+                    "status": "DONE",
+                    "blocked_by": null,
+                    "responsible": "Doctor3",
+                    "time_limit": 5400,
+                    "children": [
+                        {
+                            "id": 3,
+                            "level": 2,
+                            "name": "Task 2",
+                            "status": "NOT_STARTED",
+                            "blocked_by": null,
+                            "responsible": "Doctor2",
+                            "time_limit": 7200,
+                            "children": [],
+                            "comment": {
+                                "value": "Comment for Task 2"
+                            }
+                        }
+                    ],
+                    "comment": {
+                        "value": "Comment for Task 3"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "treatment_id": "13b1066e-fe4d-4083-8de9-521cd34fc187",
+        "doctor_id": "5fcb299a-6c36-486c-9271-e313eb51032e",
+        "patient_id": "d97e067e-e866-446e-bdee-68cca6072432",
+        "status": "RUNNING",
+        "started_at": "2024-02-18 16:36:31.404523 +0100 CET m=+323.066056918",
+        "finished_at": "",
+        "deleted_at": "",
+        "pattern_instance": {
+            "schema_instance_id": "3713344a-5939-43c8-8517-4f494c055c3f",
+            "schema_id": "0b873408-ba6d-46b3-a40f-9afdbd020dcc",
+            "author_id": "98d84ec8-7ba1-4d7c-8642-157bd4445b36",
+            "schema_name": "Hello",
+            "status": "NOT_STARTED",
+            "created_at": "2024-02-18T16:36:31.404521+01:00",
+            "updated_at": "2024-02-18T16:36:31.404521+01:00",
             "deleted_at": "0001-01-01T00:00:00Z",
             "tasks": [
                 {
@@ -433,28 +638,116 @@
         }
     },
     {
-        "treatment_id": "2986d299-30bb-4e22-9383-f17851547e80",
+        "treatment_id": "206303e0-d7bf-4a58-be6b-c4a4cc55aeb8",
         "doctor_id": "5fcb299a-6c36-486c-9271-e313eb51032e",
         "patient_id": "d97e067e-e866-446e-bdee-68cca6072432",
         "status": "RUNNING",
-        "started_at": "2024-02-18 16:38:20.98568 +0100 CET m=+2.296812668",
+        "started_at": "2024-02-18 16:31:10.6953 +0100 CET m=+2.358052793",
         "finished_at": "",
         "deleted_at": "",
         "pattern_instance": {
-            "schema_instance_id": "d7aba14b-cb32-441c-921c-27db0e89c84c",
+            "schema_instance_id": "56d99591-0250-4644-9bcc-adf948cdd212",
             "schema_id": "0b873408-ba6d-46b3-a40f-9afdbd020dcc",
             "author_id": "98d84ec8-7ba1-4d7c-8642-157bd4445b36",
             "schema_name": "Hello",
             "status": "NOT_STARTED",
-            "created_at": "2024-02-18T16:38:20.985679+01:00",
-            "updated_at": "2024-02-18T16:38:20.985679+01:00",
+            "created_at": "2024-02-18T16:31:10.695294+01:00",
+            "updated_at": "2024-02-18T16:31:10.695295+01:00",
             "deleted_at": "0001-01-01T00:00:00Z",
             "tasks": [
                 {
                     "id": 20,
                     "level": 10,
                     "name": "Hello",
-                    "status": "TASK_STATUS_NOT_STARTED",
+                    "status": "TASK_STATUS_UNSPECIFIED",
+                    "blocked_by": [
+                        20
+                    ],
+                    "responsible": "Hello",
+                    "time_limit": 20,
+                    "children": [],
+                    "comment": {
+                        "value": "Hello"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "treatment_id": "a4b60732-9e59-4696-a8b6-091bb788d749",
+        "doctor_id": "123123123",
+        "patient_id": "23123",
+        "status": "RUNNING",
+        "started_at": "2024-02-18 18:22:37.718998 +0100 CET m=+1097.784368084",
+        "finished_at": "",
+        "deleted_at": "",
+        "pattern_instance": {
+            "schema_instance_id": "752e5b1b-25d3-4a23-b7ac-45f45f0b3831",
+            "schema_id": "f9cd0691-20a8-4ef0-8d33-d1ef5d3b8238",
+            "author_id": "fdfdfd",
+            "schema_name": "dasdsadasd",
+            "status": "NOT_STARTED",
+            "created_at": "2024-02-18T18:22:37.718994+01:00",
+            "updated_at": "2024-02-18T21:58:56.900068+01:00",
+            "deleted_at": "0001-01-01T00:00:00Z",
+            "tasks": [
+                {
+                    "id": 12312,
+                    "level": 0,
+                    "name": "string",
+                    "status": "DONE",
+                    "blocked_by": [
+                        0
+                    ],
+                    "responsible": "string",
+                    "time_limit": 0,
+                    "children": [
+                        {
+                            "id": 3123123,
+                            "level": 0,
+                            "name": "string",
+                            "status": "DONE",
+                            "blocked_by": [
+                                0
+                            ],
+                            "responsible": "string",
+                            "time_limit": 0,
+                            "children": [],
+                            "comment": {
+                                "value": "Comment for Task 1"
+                            }
+                        }
+                    ],
+                    "comment": {
+                        "value": "Comment for Task 1"
+                    }
+                }
+            ]
+        }
+    },
+    {
+        "treatment_id": "67c3cf45-c38e-4dae-91e7-c657b8330fb8",
+        "doctor_id": "5fcb299a-6c36-486c-9271-e313eb51032e",
+        "patient_id": "d97e067e-e866-446e-bdee-68cca6072432",
+        "status": "RUNNING",
+        "started_at": "2024-02-18 16:40:46.456005 +0100 CET m=+9.062265001",
+        "finished_at": "",
+        "deleted_at": "",
+        "pattern_instance": {
+            "schema_instance_id": "f0a43acc-e72f-43e2-ad80-d5d38dd9e940",
+            "schema_id": "0b873408-ba6d-46b3-a40f-9afdbd020dcc",
+            "author_id": "98d84ec8-7ba1-4d7c-8642-157bd4445b36",
+            "schema_name": "Hello",
+            "status": "NOT_STARTED",
+            "created_at": "2024-02-18T16:40:46.456003+01:00",
+            "updated_at": "2024-02-18T16:40:46.456003+01:00",
+            "deleted_at": "0001-01-01T00:00:00Z",
+            "tasks": [
+                {
+                    "id": 20,
+                    "level": 10,
+                    "name": "Hello",
+                    "status": "IN_PROGRESS",
                     "blocked_by": [
                         20
                     ],

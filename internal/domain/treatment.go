@@ -49,3 +49,8 @@ type Schema struct {
 	DeletedAt             time.Time `json:"deleted_at"`
 	Tasks                 []Task    `json:"tasks"`
 }
+
+type TaskLight struct {
+	TaskID int
+	Status string
+}

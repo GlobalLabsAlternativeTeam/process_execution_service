@@ -31,9 +31,9 @@ func PatternInstanceToGRPC(p *PatternInstance) *process_execution_service.Patter
 		PatternId:   p.SchemaID,
 		AuthorId:    p.AuthorID,
 		PatternName: p.SchemaName,
-		CreatedAt:   convertTimestampFromTime(p.CreatedAt),
-		UpdatedAt:   convertTimestampFromTime(p.UpdatedAt),
-		DeletedAt:   convertTimestampFromTime(p.DeletedAt),
+		CreatedAt:   ConvertTimestampFromTime(p.CreatedAt),
+		UpdatedAt:   ConvertTimestampFromTime(p.UpdatedAt),
+		DeletedAt:   ConvertTimestampFromTime(p.DeletedAt),
 		Tasks:       TasksToGRPC(p.Tasks),
 	}
 }
@@ -52,7 +52,7 @@ func TaskToGRPC(t *Task) *process_execution_service.Task {
 		Id:          int64(t.ID),
 		Level:       int32(t.Level),
 		Name:        t.Name,
-		Status:      convertTaskStatus(t.Status),
+		Status:      ConvertTaskStatus(t.Status),
 		BlockedBy:   t.BlockedBy,
 		Responsible: t.Responsible,
 		TimeLimit:   t.TimeLimit,
@@ -90,7 +90,7 @@ func ProtoToTasks(protoTasks []*process_execution_service.Task) []Task {
 			ID:          int(protoTask.Id),
 			Level:       int(protoTask.Level),
 			Name:        protoTask.Name,
-			Status:      convertProroToTaskStatus(protoTask.Status),
+			Status:      ConvertProroToTaskStatus(protoTask.Status),
 			BlockedBy:   protoTask.BlockedBy,
 			Responsible: protoTask.Responsible,
 			TimeLimit:   protoTask.TimeLimit,
@@ -143,13 +143,13 @@ func convertTimestampFromString(t string) *timestamp.Timestamp {
 	}
 }
 
-func convertTimestampFromTime(t time.Time) *timestamp.Timestamp {
+func ConvertTimestampFromTime(t time.Time) *timestamp.Timestamp {
 	return &timestamp.Timestamp{
 		Seconds: int64(t.Second()),
 		Nanos:   int32(t.Nanosecond()),
 	}
 }
-func convertTaskStatus(status string) process_execution_service.TaskStatus {
+func ConvertTaskStatus(status string) process_execution_service.TaskStatus {
 	switch status {
 	case "NOT_STARTED":
 		return process_execution_service.TaskStatus_TASK_STATUS_NOT_STARTED
@@ -164,7 +164,7 @@ func convertTaskStatus(status string) process_execution_service.TaskStatus {
 	}
 }
 
-func convertProroToTaskStatus(status process_execution_service.TaskStatus) string {
+func ConvertProroToTaskStatus(status process_execution_service.TaskStatus) string {
 	switch status.String() {
 	case "TASK_STATUS_NOT_STARTED":
 		return "NOT_STARTED"

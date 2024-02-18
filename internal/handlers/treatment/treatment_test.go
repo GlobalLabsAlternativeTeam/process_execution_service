@@ -100,6 +100,11 @@ func (msp *MockStorageProvider) CreateTreatment(doctorID string,
 	return domain.Treatment{}, nil
 }
 
+func (msp *MockStorageProvider) CompleteTask(treatmentID string, taskID int64) error {
+
+	return nil
+}
+
 // Tests
 
 func TestGetTreatments(t *testing.T) {

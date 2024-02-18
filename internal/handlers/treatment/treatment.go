@@ -16,6 +16,7 @@ type StorageInterface interface {
 	GetPatientsByDoctor(doctorID string) ([]string, error)
 	CreateTreatment(treatmentID string, doctorID string,
 		patientID string, patternInstance domain.PatternInstance) (domain.Treatment, error)
+	CompleteTask(treatmentID string, taskID int64) error
 }
 
 type Treatment struct {
@@ -84,4 +85,25 @@ func (t *Treatment) CreateInstance(schema domain.Schema) domain.PatternInstance 
 	}
 	return patternInstance
 
+}
+
+func (t *Treatment) CompleteTasks(treatmentID string, taskIDs []int64) []domain.TaskLight {
+	var tasks_completed []domain.TaskLight
+	for _, taskID := range taskIDs {
+		error := t.StorageProvider.CompleteTask(treatmentID, taskID)
+		if error != nil {
+			tasks_completed = append(tasks_completed, domain.TaskLight{
+				TaskID: int(taskID),
+				Status: "STATUS_UNSPECIFIED",
+			})
+		} else {
+			tasks_completed = append(tasks_completed, domain.TaskLight{
+				TaskID: int(taskID),
+				Status: "DONE",
+			})
+
+		}
+
+	}
+	return tasks_completed
 }

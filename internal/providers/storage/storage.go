@@ -195,3 +195,50 @@ func (s *Storage) CreateTreatment(doctorID string,
 
 	return treatment, nil
 }
+
+func (s *Storage) CompleteTask(treatmentID string, taskID int64) error {
+
+	treatment, error := s.treatments[treatmentID]
+
+	if !error {
+		return fmt.Errorf("treatment with ID %s not found", treatmentID)
+	}
+
+	patternInstance := treatment.PatternInstance
+	tasks := patternInstance.Tasks
+	tasks, result := s.ChangeTaskStatus(taskID, tasks, "DONE")
+
+	if !result {
+		return fmt.Errorf("task %d not found in treatment %s", taskID, treatmentID)
+	}
+	patternInstance.Tasks = tasks
+	patternInstance.UpdatedAt = time.Now()
+	treatment.PatternInstance = patternInstance
+	s.treatments[treatmentID] = treatment
+
+	err := s.SaveToFile()
+	if err != nil {
+		delete(s.treatments, treatmentID) // revert changes to avoid broken state
+		log.Fatalf("error saving storage to file: %v", err)
+		return nil
+	}
+
+	return nil
+
+}
+
+func (s *Storage) ChangeTaskStatus(taskID int64, tasks []domain.Task, status string) ([]domain.Task, bool) {
+	for i, task := range tasks {
+		if task.ID == int(taskID) {
+			tasks[i].Status = status
+			return tasks, true
+		}
+		if len(task.Children) > 0 {
+			_, taskFound := s.ChangeTaskStatus(taskID, task.Children, status)
+			if taskFound {
+				return tasks, true
+			}
+		}
+	}
+	return tasks, false
+}
