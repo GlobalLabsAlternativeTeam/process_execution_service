@@ -68,8 +68,8 @@ func (t *Treatment) CreateTreatment(doctorID string, patientID string, schema do
 }
 
 func (t *Treatment) CreateInstance(schema domain.Schema) domain.PatternInstance {
-
-	//TODO: Check that there is no sucj id for another instance in the same treatment (alsmost impossible)
+	// TODO: Check that there is no such id for another instance
+	// in the same treatment (almost impossible)
 	id := uuid.New().String()
 
 	patternInstance := domain.PatternInstance{
@@ -83,8 +83,8 @@ func (t *Treatment) CreateInstance(schema domain.Schema) domain.PatternInstance 
 		DeletedAt:             time.Time{},
 		Tasks:                 schema.Tasks,
 	}
-	return patternInstance
 
+	return patternInstance
 }
 
 func (t *Treatment) CompleteTasks(treatmentID string, taskIDs []int64) []domain.TaskLight {

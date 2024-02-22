@@ -103,7 +103,7 @@ func (s *TreatmentServer) CreateTreatment(ctx context.Context, req *process_exec
 	treatment, err := s.TreatmentHandler.CreateTreatment(doctorID, patientID, schema)
 
 	if err != nil {
-		fmt.Println("Error calling treatment API, CreateInstance ", err)
+		fmt.Println("Error calling treatment API, CreateTreatment ", err)
 		return nil, err
 	}
 

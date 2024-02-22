@@ -162,9 +162,8 @@ func (s *Storage) GetPatientsByDoctor(doctorID string) ([]string, error) {
 	return patients, nil
 }
 
-func (s *Storage) CreateTreatment(doctorID string,
-	patientID string, status string, patternInstance domain.PatternInstance) (domain.Treatment, error) {
-
+func (s *Storage) CreateTreatment(doctorID string, patientID string,
+	status string, patternInstance domain.PatternInstance) (domain.Treatment, error) {
 	treatmentID := uuid.New().String()
 	for {
 		if _, ok := s.treatments[treatmentID]; !ok {
